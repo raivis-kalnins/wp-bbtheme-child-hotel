@@ -82,11 +82,68 @@ function initPresentationGeometry() {
   else window.addEventListener('load', run, { once: true });
 }
 
+
+function initQuoteDrawer() {
+  const trigger = document.querySelector('.wp-theme-quote-float');
+  if (!trigger || document.body.classList.contains('wpbb-request-quote-disabled')) return;
+  const directLink = trigger.matches('a') ? trigger : trigger.querySelector('a');
+  const href = (directLink && directLink.getAttribute('href')) || '/request-a-quote/';
+  const countNode = trigger.querySelector('.wp-theme-quote-count, .count, [data-quote-count]');
+  const count = countNode ? countNode.textContent.trim() : (trigger.textContent.match(/\d+/) || ['0'])[0];
+
+  const backdrop = document.createElement('div');
+  backdrop.className = 'wp-theme-quote-drawer-backdrop';
+  backdrop.hidden = true;
+  const drawer = document.createElement('aside');
+  drawer.className = 'wp-theme-quote-drawer';
+  drawer.setAttribute('aria-hidden', 'true');
+  drawer.innerHTML = `
+    <div class="wp-theme-quote-drawer__head">
+      <div><span class="wp-theme-sector-eyebrow">Quote</span><h2>Your quote</h2></div>
+      <button type="button" class="wp-theme-quote-drawer__close" aria-label="Close quote">×</button>
+    </div>
+    <div class="wp-theme-quote-drawer__body">
+      <p class="wp-theme-quote-drawer__count"><strong>${count}</strong> item${count === '1' ? '' : 's'} currently saved for quotation.</p>
+      <p>Review the selected items, add your contact details and send one quotation request when you are ready.</p>
+    </div>
+    <div class="wp-theme-quote-drawer__actions"><a class="wp-theme-btn wp-theme-btn--primary" href="${href}">Review quote</a></div>`;
+  document.body.append(backdrop, drawer);
+  const close = () => { drawer.classList.remove('is-open'); drawer.setAttribute('aria-hidden', 'true'); backdrop.hidden = true; document.body.classList.remove('wp-theme-quote-drawer-open'); };
+  const open = (event) => { if (event) event.preventDefault(); backdrop.hidden = false; requestAnimationFrame(() => drawer.classList.add('is-open')); drawer.setAttribute('aria-hidden', 'false'); document.body.classList.add('wp-theme-quote-drawer-open'); drawer.querySelector('.wp-theme-quote-drawer__close').focus(); };
+  trigger.addEventListener('click', open);
+  backdrop.addEventListener('click', close);
+  drawer.querySelector('.wp-theme-quote-drawer__close').addEventListener('click', close);
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && drawer.classList.contains('is-open')) close(); });
+}
+
+
+
+function applyChildThemeTablerIcons() {
+  const cfg = window.wpbbChildVisuals;
+  if (!cfg || !cfg.base || !Array.isArray(cfg.icons) || !cfg.icons.length) return;
+  const slots = Array.from(document.querySelectorAll('#wp-theme-main .wp-theme-card-icon, #wp-theme-main .wp-theme-sector-card__icon, #wp-theme-main .wp-theme-icon-box'))
+    .filter((node) => !node.closest('.wp-theme-contact-detail'));
+  slots.forEach((slot, index) => {
+    if (slot.querySelector('.wp-theme-tabler-icon')) return;
+    const icon = cfg.icons[index % cfg.icons.length];
+    if (!icon) return;
+    slot.querySelectorAll('svg, img').forEach((legacy) => { legacy.setAttribute('aria-hidden', 'true'); legacy.style.display = 'none'; });
+    const span = document.createElement('span');
+    span.className = 'wp-theme-tabler-icon';
+    span.setAttribute('aria-hidden', 'true');
+    const safeUrl = `${cfg.base.replace(/\/$/, '')}/assets/icons/tabler/${icon}.svg`;
+    span.style.setProperty('--wp-theme-tabler-icon', `url("${safeUrl}")`);
+    slot.appendChild(span);
+  });
+}
+
 function boot() {
   initHeader();
+  applyChildThemeTablerIcons();
   observeMotion();
   initBlog();
   initPresentationGeometry();
+  initQuoteDrawer();
 }
 
 if (document.readyState === 'loading') {

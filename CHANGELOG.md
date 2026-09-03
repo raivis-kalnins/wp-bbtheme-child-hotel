@@ -1,3 +1,53 @@
+## 3.8.10.42
+
+- Rebuilt demo/blog featured-image set from this child theme's own sector media.
+- Added v381041 one-time media refresh so existing optimized AVIF/WebP/JPEG attachments are rewritten and blog thumbnails are reassigned.
+- Plugins are unchanged.
+
+## 3.8.10.40
+- Fixed stale imported demo images when WordPress/image optimizers changed attachment originals to AVIF/WebP.
+- Refresh now resolves bundled photography by filename stem and regenerates attachment sub-sizes/metadata.
+- Retains the sector-specific photography, outline SVG icon system and select/finder UI fixes.
+
+## 3.8.10.38
+
+## 3.8.10.40
+- Theme-only visual QA release with sector-correct photographic demo media.
+- Refreshed imported-media migration so existing demo attachments are updated in place.
+- Replaced legacy filled icon assets with a consistent modern outline SVG set.
+- Hardened select chevrons and finder action alignment.
+- Improved media sharpness and contact-detail rendering.
+
+- Restored visible select chevrons with 18px right-edge spacing and aligned filter buttons.
+- Re-runs realistic demo-media migration so already-imported attachments receive the corrected sector photography.
+- Hotel room/blog/gallery media refreshes from Hotel-only sources; contact detail text is normalized and blur/filter effects are removed.
+
+## 3.8.10.36
+
+## 3.8.10.38
+- Select controls now use a consistent custom chevron positioned 18px inside the right edge, with 48px right padding so filter/contact labels never crowd the arrow.
+- Added a matching light chevron for dark theme controls. No plugin changes.
+
+- Forced realistic media refresh for already imported demos.
+- Ensured sector-specific photographic demo/blog/page imagery.
+
+## 3.8.10.34
+- Fixed legacy motion blocks remaining invisible after load by restoring `.is-visible` compatibility.
+- Re-runs the admin-only realistic-media upgrade so existing demo/blog/page thumbnails pick up the refreshed sector photography.
+- Keeps WordPress image metadata APIs loaded before attachment insertion to avoid `wp_generate_attachment_metadata()` fatals.
+
+## 3.8.10.32
+- Fixed realistic-media attachment creation so WordPress image-admin functions load before `wp_insert_attachment()` fires `add_attachment`.
+- The one-time media upgrade now runs from normal WP Admin initialization only, not `wp_loaded`, AJAX, or cron.
+
+## 3.8.10.30
+- Dark-mode form and WooCommerce polish.
+- Project-preview imagery and improved icon sizing.
+
+## 3.8.10.29
+- Fixed WooCommerce header icon controls and My Account layout.
+- Added demo import refresh and empty-home integrity guard.
+
 ## 3.8.10.28
 
 - Increased the open/up submenu chevron offset so the arrow sits farther right inside the mobile submenu toggle.

@@ -28,3 +28,10 @@ yarn prod
 ```
 
 The command runs `node tools/build.mjs` and rebuilds the hashed CSS/JS manifest directly.
+
+
+### 3.8.10.42
+- Replaced demo feature icons with Tabler Icons v3.46.0 outline SVGs, sized for normal UI use and coloured from the child-theme brand token.
+- Single-column imported demo rows are repaired to 12 columns at every breakpoint.
+- Dark-mode demo cards use explicit dark surfaces/readable text.
+- Optional frontend-only demo password protection is available in Settings → Theme Settings (default password `wp@demo`).
