@@ -1,6 +1,8 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
+require_once __DIR__ . '/inc/frontend-password-protection.php';
+
 function wpbb_hotel_project_mode( $mode ) { return 'hotel'; }
 add_filter( 'wp_theme_project_mode', 'wpbb_hotel_project_mode' );
 
@@ -152,7 +154,7 @@ function wpbb_hotel_header_search_types( $types ) { if(post_type_exists('hotel_r
 add_filter( 'wp_theme_header_search_post_types', 'wpbb_hotel_header_search_types' );
 
 function wpbb_hotel_single_content( $content ) {
-    if ( !is_singular('hotel_room') || !in_the_loop() || !is_main_query() ) return $content; $id=get_the_ID(); $image=get_the_post_thumbnail_url($id,'large'); $gallery=function_exists('wp_theme_item_gallery_single_markup')?wp_theme_item_gallery_single_markup($id):'';
+    if ( !is_singular('hotel_room') || !in_the_loop() || !is_main_query() ) return $content; $content=wpbb_child_381043_dedupe_single_body($content,get_the_excerpt()); $id=get_the_ID(); $image=get_the_post_thumbnail_url($id,'large'); $gallery = function_exists( 'wpbb_child_381045_gallery_single_markup' ) ? wpbb_child_381045_gallery_single_markup( $id ) : ''; if ( ! $gallery && function_exists( 'wp_theme_item_gallery_single_markup' ) ) $gallery = wp_theme_item_gallery_single_markup( $id );
     $facts=''; foreach(wpbb_hotel_meta_fields() as $key=>$label){$value=get_post_meta($id,'_hotel_'.$key,true);if(''!==trim((string)$value))$facts.='<div><small>'.esc_html($label).'</small><strong>'.esc_html($value).'</strong></div>';}
     $html='<section class="wpbb-sector-single"><div class="container"><div class="wpbb-sector-single__hero"><div class="wpbb-sector-single__media">'.($gallery?:($image?'<img src="'.esc_url($image).'" alt="'.esc_attr(get_the_title()).'">':'')).'</div><div><p class="wp-theme-sector-eyebrow">'.esc_html('Room').'</p><h1>'.esc_html(get_the_title()).'</h1><p class="wp-theme-sector-lead">'.esc_html(get_the_excerpt()).'</p><div class="wpbb-sector-single__facts">'.$facts.'</div></div></div><div class="wpbb-sector-single__content">'.$content.'</div>';
     if(function_exists('wpbb_hotel_request_form'))$html.=wpbb_hotel_request_form($id); return $html.'</div></section>';
@@ -652,87 +654,133 @@ function wpbb_child_381042_repair_demo_page_widths_once() {
 }
 add_action( 'admin_init', 'wpbb_child_381042_repair_demo_page_widths_once', 40 );
 
-function wpbb_child_381042_protection_keys() {
-    $slug = sanitize_key( get_stylesheet() );
-    return array( 'enabled' => 'wpbb_demo_protection_enabled_' . $slug, 'hash' => 'wpbb_demo_protection_hash_' . $slug );
+/**
+ * v3.8.10.43: repair shared demo alignment and force one fresh media pass.
+ *
+ * The previous media migration was intentionally one-shot. This release uses a
+ * new per-theme marker so sites that already ran v381041 receive the current
+ * child-owned room/product/project/blog images as well.
+ */
+if ( ! function_exists( 'wpbb_child_381043_normalize_text' ) ) {
+    function wpbb_child_381043_normalize_text( $value ) {
+        $value = html_entity_decode( wp_strip_all_tags( (string) $value ), ENT_QUOTES | ENT_HTML5, get_bloginfo( 'charset' ) );
+        return trim( preg_replace( '/\\s+/u', ' ', $value ) );
+    }
 }
-function wpbb_child_381042_protection_bootstrap() {
-    $keys = wpbb_child_381042_protection_keys();
-    if ( false === get_option( $keys['enabled'], false ) ) add_option( $keys['enabled'], '1', '', false );
-    if ( false === get_option( $keys['hash'], false ) ) add_option( $keys['hash'], wp_hash_password( 'wp@demo' ), '', false );
-}
-add_action( 'init', 'wpbb_child_381042_protection_bootstrap', 1 );
-function wpbb_child_381042_protection_enabled() {
-    $keys = wpbb_child_381042_protection_keys();
-    return '0' !== (string) get_option( $keys['enabled'], '1' );
-}
-function wpbb_child_381042_access_token() {
-    $keys = wpbb_child_381042_protection_keys();
-    return hash_hmac( 'sha256', (string) get_option( $keys['hash'], '' ), wp_salt( 'auth' ) );
-}
-function wpbb_child_381042_has_access() {
-    if ( current_user_can( 'manage_options' ) ) return true;
-    $cookie = isset( $_COOKIE['wpbb_demo_access'] ) ? sanitize_text_field( wp_unslash( $_COOKIE['wpbb_demo_access'] ) ) : '';
-    return $cookie && hash_equals( wpbb_child_381042_access_token(), $cookie );
-}
-function wpbb_child_381042_protection_gate() {
-    if ( ! wpbb_child_381042_protection_enabled() || is_admin() || wp_doing_ajax() || wp_doing_cron() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || ( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) || wpbb_child_381042_has_access() ) return;
-    $keys = wpbb_child_381042_protection_keys();
-    $error = false;
-    if ( 'POST' === strtoupper( $_SERVER['REQUEST_METHOD'] ?? '' ) && isset( $_POST['wpbb_demo_password'] ) ) {
-        $password = (string) wp_unslash( $_POST['wpbb_demo_password'] );
-        if ( wp_check_password( $password, (string) get_option( $keys['hash'], '' ) ) ) {
-            $token = wpbb_child_381042_access_token();
-            setcookie( 'wpbb_demo_access', $token, array( 'expires' => time() + DAY_IN_SECONDS, 'path' => '/', 'secure' => is_ssl(), 'httponly' => true, 'samesite' => 'Lax' ) );
-            $_COOKIE['wpbb_demo_access'] = $token;
-            $target = home_url( wp_unslash( $_SERVER['REQUEST_URI'] ?? '/' ) );
-            wp_safe_redirect( $target ); exit;
+
+if ( ! function_exists( 'wpbb_child_381043_dedupe_single_body' ) ) {
+    function wpbb_child_381043_dedupe_single_body( $content, $excerpt = '' ) {
+        $excerpt_text = wpbb_child_381043_normalize_text( $excerpt );
+        if ( '' === $excerpt_text ) return $content;
+
+        $content_text = wpbb_child_381043_normalize_text( $content );
+        if ( $content_text === $excerpt_text ) return '';
+
+        if ( preg_match( '~^\\s*<p(?:\\s[^>]*)?>(.*?)</p>~is', (string) $content, $match ) ) {
+            if ( wpbb_child_381043_normalize_text( $match[1] ) === $excerpt_text ) {
+                return ltrim( substr( (string) $content, strlen( $match[0] ) ) );
+            }
         }
-        $error = true;
-    }
-    $brand = '#253E5B';
-    $site = get_bloginfo( 'name' );
-    $theme = wp_get_theme()->get( 'Name' );
-    nocache_headers(); status_header( 401 );
-    ?><!doctype html><html <?php language_attributes(); ?>><head><meta charset="<?php bloginfo( 'charset' ); ?>"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title><?php echo esc_html( $site ); ?> — Protected Demo</title><style>
-    :root{--brand:<?php echo esc_html( $brand ); ?>}*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:28px;background:linear-gradient(145deg,#07111d,#102131 58%,#0a1520);color:#132033;font:16px/1.55 Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wpbb-demo-lock{width:min(100%,470px);padding:38px;border:1px solid rgba(255,255,255,.25);border-radius:24px;background:#fff;box-shadow:0 30px 90px rgba(0,0,0,.32)}.wpbb-demo-lock__icon{width:64px;height:64px;display:grid;place-items:center;margin-bottom:24px;border-radius:18px;background:color-mix(in srgb,var(--brand) 12%,#fff);color:var(--brand)}.wpbb-demo-lock__icon svg{width:32px;height:32px}.wpbb-demo-lock small{display:block;margin-bottom:8px;color:var(--brand);font-weight:800;letter-spacing:.12em;text-transform:uppercase}.wpbb-demo-lock h1{margin:0 0 12px;font-size:34px;line-height:1.08;letter-spacing:-.035em}.wpbb-demo-lock p{margin:0 0 24px;color:#657386}.wpbb-demo-lock label{display:block;margin-bottom:8px;font-size:13px;font-weight:750}.wpbb-demo-lock input{width:100%;height:50px;padding:0 15px;border:1px solid #d5dde5;border-radius:11px;background:#fff;color:#132033;font:inherit;outline:none}.wpbb-demo-lock input:focus{border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb,var(--brand) 14%,transparent)}.wpbb-demo-lock button{width:100%;height:50px;margin-top:14px;border:0;border-radius:11px;background:var(--brand);color:#fff;font:750 16px/1 inherit;cursor:pointer}.wpbb-demo-lock__error{margin:0 0 16px;padding:10px 12px;border-radius:10px;background:#fff1f0;color:#a12b22;font-size:14px}.wpbb-demo-lock__meta{margin-top:20px!important;margin-bottom:0!important;font-size:12px;color:#8a96a4!important}@media(max-width:520px){.wpbb-demo-lock{padding:28px 22px}.wpbb-demo-lock h1{font-size:29px}}
-    </style></head><body><main class="wpbb-demo-lock"><div class="wpbb-demo-lock__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3"/><path d="M9 12l2 2l4 -4"/></svg></div><small><?php echo esc_html( $theme ); ?></small><h1><?php echo esc_html__( 'Protected demo', 'wp-theme' ); ?></h1><p><?php echo esc_html__( 'Enter the demo password to view this website.', 'wp-theme' ); ?></p><?php if ( $error ) : ?><div class="wpbb-demo-lock__error"><?php echo esc_html__( 'That password is not correct. Please try again.', 'wp-theme' ); ?></div><?php endif; ?><form method="post"><label for="wpbb-demo-password"><?php echo esc_html__( 'Password', 'wp-theme' ); ?></label><input id="wpbb-demo-password" name="wpbb_demo_password" type="password" autocomplete="current-password" autofocus required><button type="submit"><?php echo esc_html__( 'View demo', 'wp-theme' ); ?></button></form><p class="wpbb-demo-lock__meta"><?php echo esc_html( $site ); ?></p></main></body></html><?php exit;
-}
-add_action( 'template_redirect', 'wpbb_child_381042_protection_gate', -1000 );
-
-function wpbb_child_381042_save_protection_settings() {
-    if ( ! current_user_can( 'manage_options' ) ) wp_die( esc_html__( 'You are not allowed to change these settings.', 'wp-theme' ) );
-    check_admin_referer( 'wpbb_child_381042_save_protection' );
-    $keys = wpbb_child_381042_protection_keys();
-    update_option( $keys['enabled'], isset( $_POST['enabled'] ) ? '1' : '0', false );
-    $password = isset( $_POST['password'] ) ? trim( (string) wp_unslash( $_POST['password'] ) ) : '';
-    if ( '' !== $password ) update_option( $keys['hash'], wp_hash_password( $password ), false );
-    wp_safe_redirect( add_query_arg( array( 'page' => 'wp-theme-settings', 'wpbb_protection_saved' => '1' ), admin_url( 'options-general.php' ) ) ); exit;
-}
-add_action( 'admin_post_wpbb_child_381042_save_protection', 'wpbb_child_381042_save_protection_settings' );
-
-function wpbb_child_381042_protection_settings_markup() {
-    $keys = wpbb_child_381042_protection_keys();
-    $enabled = wpbb_child_381042_protection_enabled();
-    ?><div class="notice" style="padding:0;border-left:4px solid #253E5B;box-shadow:0 1px 3px rgba(0,0,0,.08)"><div style="padding:18px 20px"><h2 style="margin:0 0 8px">Frontend Demo Protection</h2><p style="max-width:760px">Protect only the public frontend. WP Admin, AJAX and REST requests remain available. The initial password is <code>wp@demo</code>; enter a new password below only when you want to replace it.</p><?php if ( isset( $_GET['wpbb_protection_saved'] ) ) : ?><p style="color:#16813b;font-weight:700">Settings saved.</p><?php endif; ?><form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="display:grid;grid-template-columns:minmax(240px,340px) minmax(240px,420px) auto;gap:14px;align-items:end;max-width:980px"><input type="hidden" name="action" value="wpbb_child_381042_save_protection"><?php wp_nonce_field( 'wpbb_child_381042_save_protection' ); ?><label style="display:flex;gap:8px;align-items:center;min-height:40px"><input type="checkbox" name="enabled" value="1" <?php checked( $enabled ); ?>> <strong>Enable frontend password protection</strong></label><label><strong style="display:block;margin-bottom:6px">Change password</strong><input class="regular-text" type="password" name="password" autocomplete="new-password" placeholder="Leave blank to keep the current password"></label><button class="button button-primary" type="submit">Save protection settings</button></form></div></div><?php
-}
-function wpbb_child_381042_theme_settings_fallback() {
-    echo '<div class="wrap"><h1>' . esc_html__( 'Theme Settings', 'wp-theme' ) . '</h1>';
-    wpbb_child_381042_protection_settings_markup();
-    echo '</div>';
-}
-function wpbb_child_381042_register_theme_settings_fallback() {
-    global $submenu;
-    $exists = false;
-    foreach ( (array) ( $submenu['options-general.php'] ?? array() ) as $item ) if ( ( $item[2] ?? '' ) === 'wp-theme-settings' ) { $exists = true; break; }
-    if ( ! $exists ) {
-        $GLOBALS['wpbb_child_381042_settings_fallback'] = true;
-        add_options_page( __( 'Theme Settings', 'wp-theme' ), __( 'Theme Settings', 'wp-theme' ), 'manage_options', 'wp-theme-settings', 'wpbb_child_381042_theme_settings_fallback' );
+        return $content;
     }
 }
-add_action( 'admin_menu', 'wpbb_child_381042_register_theme_settings_fallback', 99 );
-function wpbb_child_381042_inject_protection_settings() {
-    if ( ! current_user_can( 'manage_options' ) || ( $_GET['page'] ?? '' ) !== 'wp-theme-settings' || ! empty( $GLOBALS['wpbb_child_381042_settings_fallback'] ) ) return;
-    wpbb_child_381042_protection_settings_markup();
+
+if ( ! function_exists( 'wpbb_child_381043_repair_block_alignment' ) ) {
+    function wpbb_child_381043_repair_block_alignment( $blocks ) {
+        foreach ( $blocks as &$block ) {
+            if ( 'wpbb/row' === ( $block['blockName'] ?? '' ) ) {
+                $attrs = $block['attrs'] ?? array();
+                $classes = preg_split( '/\\s+/', trim( (string) ( $attrs['customClasses'] ?? '' ) ) );
+                $classes = array_values( array_filter( array_map( 'sanitize_html_class', $classes ) ) );
+                if ( in_array( 'wp-theme-sector-media-text', $classes, true ) ) {
+                    $classes = array_values( array_diff( $classes, array( 'align-items-center', 'align-items-end' ) ) );
+                    if ( ! in_array( 'align-items-start', $classes, true ) ) $classes[] = 'align-items-start';
+                    $attrs['customClasses'] = implode( ' ', $classes );
+                    $block['attrs'] = $attrs;
+                }
+            }
+            if ( ! empty( $block['innerBlocks'] ) ) {
+                $block['innerBlocks'] = wpbb_child_381043_repair_block_alignment( $block['innerBlocks'] );
+            }
+        }
+        unset( $block );
+        return $blocks;
+    }
 }
-add_action( 'admin_notices', 'wpbb_child_381042_inject_protection_settings', 20 );
+
+if ( ! function_exists( 'wpbb_child_381043_repair_demo_pages' ) ) {
+    function wpbb_child_381043_repair_demo_pages() {
+        // Repair every page that actually contains the theme's media/text row.
+        // This also covers front pages imported before the managed-page marker existed.
+        $page_ids = get_posts( array(
+            'post_type' => 'page',
+            'post_status' => 'any',
+            'posts_per_page' => -1,
+            'fields' => 'ids',
+        ) );
+        foreach ( $page_ids as $page_id ) {
+            $content = (string) get_post_field( 'post_content', $page_id );
+            if ( false === strpos( $content, 'wp-theme-sector-media-text' ) ) continue;
+            $repaired = serialize_blocks( wpbb_child_381043_repair_block_alignment( parse_blocks( $content ) ) );
+            if ( $repaired !== $content ) {
+                wp_update_post( array( 'ID' => $page_id, 'post_content' => $repaired ) );
+                clean_post_cache( $page_id );
+            }
+        }
+    }
+}
+
+if ( ! function_exists( 'wpbb_child_381043_refresh_media_once' ) ) {
+    function wpbb_child_381043_refresh_media_once( $page_id = 0, $profile = array() ) {
+        if ( ( function_exists( 'wp_doing_ajax' ) && wp_doing_ajax() ) || ( function_exists( 'wp_doing_cron' ) && wp_doing_cron() ) ) return;
+        if ( ! current_user_can( 'manage_options' ) ) return;
+
+        $current_stylesheet = sanitize_key( get_stylesheet() );
+        $done_key = 'wpbb_child_381043_media_' . $current_stylesheet;
+        $owner_key = 'wpbb_child_381043_media_owner';
+        // Demo posts are shared while child themes are switched. Refresh again
+        // whenever a different child theme last supplied the active media.
+        if ( get_option( $done_key ) && $current_stylesheet === (string) get_option( $owner_key ) ) return;
+
+        $defined = get_defined_functions();
+        foreach ( (array) ( $defined['user'] ?? array() ) as $function_name ) {
+            if ( ! preg_match( '/^wpbb_[a-z0-9_]+_realistic_media_upgrade_v381041$/', $function_name ) ) continue;
+            delete_option( $function_name );
+            call_user_func( $function_name );
+        }
+
+        // Correct stale titles/alt text left behind when the same demo posts were
+        // reused while switching child themes.
+        $post_ids = get_posts( array(
+            'post_type' => 'any',
+            'post_status' => 'any',
+            'posts_per_page' => -1,
+            'meta_key' => '_thumbnail_id',
+            'fields' => 'ids',
+        ) );
+        foreach ( $post_ids as $post_id ) {
+            $thumbnail_id = (int) get_post_thumbnail_id( $post_id );
+            if ( ! $thumbnail_id ) continue;
+            $attached = (string) get_post_meta( $thumbnail_id, '_wp_attached_file', true );
+            $attachment_name = (string) get_post_field( 'post_name', $thumbnail_id );
+            if ( false === strpos( $attached, '-blog/' ) && 0 !== strpos( $attachment_name, 'wpbb-' ) ) continue;
+            $title = get_the_title( $post_id );
+            if ( '' === trim( (string) $title ) ) continue;
+            wp_update_post( array( 'ID' => $thumbnail_id, 'post_title' => $title ) );
+            update_post_meta( $thumbnail_id, '_wp_attachment_image_alt', $title );
+            clean_post_cache( $post_id );
+            clean_attachment_cache( $thumbnail_id );
+        }
+
+        wpbb_child_381043_repair_demo_pages();
+        update_option( $done_key, current_time( 'mysql' ), false );
+        update_option( $owner_key, $current_stylesheet, false );
+    }
+}
+add_action( 'wp_theme_after_demo_import', 'wpbb_child_381043_refresh_media_once', 180, 2 );
+add_action( 'admin_init', 'wpbb_child_381043_refresh_media_once', 130 );
+
+/**
+ * v3.8.10.45: shared rhythm, contrast, sector-media and gallery repair.
+ */
+require_once __DIR__ . '/inc/sector-consistency.php';

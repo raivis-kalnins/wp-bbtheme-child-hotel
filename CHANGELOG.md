@@ -1,3 +1,38 @@
+## 3.8.10.46
+- Prevents heavy legacy sector-image migrations from running synchronously in the WordPress dashboard; a resumable small-batch worker now performs repairs safely.
+- Keeps frontend password protection inside **Theme Settings → General**.
+- Places compact gallery thumbnails inside the bottom of the main image and retains the accessible full-screen modal.
+- Restores active-sector demo, directory and managed Blog imagery after switching child themes, with Hotel posts using hospitality imagery.
+- Includes parent/plugin compatibility fixes for WordPress 6.7+ translation timing and ACF initialization.
+
+## 3.8.10.45
+
+- Normalised full-width section rhythm to 80px desktop, 64px tablet and 52px mobile, with a 50px minimum gap through linked stats/proof groups.
+- Added explicit light- and dark-mode card typography so headings, descriptions, metadata and links remain readable inside every sector layout.
+- Top-aligned and rescaled About/media rows across the shared page system.
+- Reassigned demo blog, directory, hero, gallery and page media from the active child theme so sector switching cannot leave images from another industry.
+- Added richer thumbnail galleries and a keyboard/touch-accessible full-screen modal to Hotel rooms and other directory themes using the same card/single layout.
+- Preserved the configurable frontend password protection introduced in 3.8.10.44.
+
+## 3.8.10.44
+
+- Standardised the default-on frontend password gate across all 13 child themes.
+- The initial frontend password is `wp@demo`; it is stored only as a WordPress password hash.
+- Added enable/disable and password-change controls at Settings → Theme Settings (`/wp-admin/options-general.php?page=wp-theme-settings`).
+- Added signed 24-hour access cookies, administrator bypass, no-cache headers and safe exemptions for wp-admin, AJAX, cron, REST and XML-RPC requests.
+- Existing protection settings and changed passwords from 3.8.10.42/3.8.10.43 are preserved.
+- Visual alignment, colour and media corrections from 3.8.10.43 are unchanged.
+
+## 3.8.10.43
+
+- Added the shared card/icon alignment pass used by all 13 child themes.
+- Fixed dark-mode directory-card links, metadata values, labels and action contrast.
+- Top-aligned media/text rows, removed generated block gaps and normalised proof/stat flow.
+- Removed duplicated single-item excerpts and aligned request/detail panels to the page grid.
+- Added deterministic eager loading for visible hero, gallery, blog, directory and product images.
+- Added an active-theme-aware media refresh so shared AVIF/WebP/JPEG demo attachments are rewritten after child-theme switches and receive current titles/alt text.
+- Plugins and parent-theme requirements are unchanged.
+
 ## 3.8.10.42
 
 - Rebuilt demo/blog featured-image set from this child theme's own sector media.

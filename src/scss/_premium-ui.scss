@@ -4278,3 +4278,890 @@ body.wp-theme-quote-drawer-open { overflow:hidden; }
 }
 .is-dark-theme #wp-theme-main .wpbb-sector-proof-band { background:#101b25; }
 .is-dark-theme #wp-theme-main .wp-theme-faq-section summary { color:#eef4f8; }
+/* v3.8.10.43: shared alignment, contrast and image-stability corrections. */
+
+/* Keep generated section groups on one continuous page flow. Core block-gap
+   rules can otherwise add a visible strip between adjacent full-width groups. */
+#wp-theme-main > .wp-theme-section-shell,
+#wp-theme-main > .wp-block-group.wp-theme-section-shell {
+  margin-block-start:0;
+}
+
+/* Service, solution, process and result cards share the same column geometry. */
+#wp-theme-main .wp-theme-sector-services > .wpbb-column,
+#wp-theme-main .wp-theme-sector-industries > .wpbb-column,
+#wp-theme-main .wp-theme-sector-process-grid > .wpbb-column,
+#wp-theme-main .wp-theme-case-grid > .wpbb-column,
+#wp-theme-main .wp-theme-case-studies-grid > .wpbb-column {
+  display:flex;
+  align-items:stretch;
+}
+#wp-theme-main .wp-theme-sector-services .wp-theme-sector-card,
+#wp-theme-main .wp-theme-sector-industries .wp-theme-sector-card,
+#wp-theme-main .wp-theme-sector-process-grid .wp-theme-sector-card,
+#wp-theme-main .wp-theme-case-card,
+#wp-theme-main .wpbb-sector-proof-card {
+  width:100%;
+  height:100%;
+}
+#wp-theme-main .wp-theme-sector-card {
+  display:flex;
+  flex-direction:column;
+}
+#wp-theme-main .wp-theme-sector-card .wp-theme-card-icon,
+#wp-theme-main .wp-theme-sector-card .wp-theme-sector-card__icon,
+#wp-theme-main .wp-theme-sector-card .wp-theme-icon-box {
+  flex:0 0 56px;
+  align-self:flex-start;
+  display:grid;
+  place-items:center;
+  margin:0 0 22px;
+  padding:0;
+  line-height:0;
+}
+#wp-theme-main .wp-theme-sector-card .wp-theme-card-icon > *,
+#wp-theme-main .wp-theme-sector-card .wp-theme-sector-card__icon > *,
+#wp-theme-main .wp-theme-sector-card .wp-theme-icon-box > * {
+  margin:auto;
+}
+#wp-theme-main .wp-theme-sector-card h3 {
+  margin-top:0;
+  margin-bottom:10px;
+}
+#wp-theme-main .wp-theme-sector-card p:last-child {
+  margin-top:0;
+  margin-bottom:0;
+}
+
+/* Media/text rows are intentionally top-aligned. The importer now replaces the
+   Bootstrap align-items-center utility too, while this rule covers old markup. */
+#wp-theme-main .wp-theme-sector-media-text {
+  align-items:flex-start;
+}
+#wp-theme-main .wp-theme-sector-media-text > .wpbb-column,
+#wp-theme-main .wp-theme-sector-media-text > [class*="col-"] {
+  align-self:flex-start;
+}
+#wp-theme-main .wp-theme-sector-media-text__media,
+#wp-theme-main .wp-theme-sector-page-image {
+  width:100%;
+  margin:0;
+}
+#wp-theme-main .wp-theme-sector-media-text__media img,
+#wp-theme-main .wp-theme-sector-page-image img,
+#wp-theme-main .wp-theme-gallery-card img,
+#wp-theme-main .wpbb-swiper--gallery img,
+#wp-theme-main .wp-theme-blog-card img,
+#wp-theme-main .wp-theme-blog-list-card img,
+#wp-theme-main .wpbb-sector-card img,
+#wp-theme-main .woocommerce ul.products li.product img {
+  display:block;
+  width:100%;
+  max-width:100%;
+  opacity:1;
+  visibility:visible;
+  object-fit:cover;
+  object-position:center;
+}
+
+/* Proof/stat groups sit in normal flow and never overlap the preceding band. */
+#wp-theme-main .wp-theme-sector-proof,
+#wp-theme-main .wp-theme-sector-proof--compact,
+#wp-theme-main .wpbb-sector-proof-band {
+  transform:none;
+}
+#wp-theme-main .wpbb-sector-proof-band {
+  margin-top:0;
+}
+#wp-theme-main .wp-theme-sector-proof > .wpbb-column,
+#wp-theme-main .wp-theme-sector-proof--compact > .wpbb-column,
+#wp-theme-main .wpbb-sector-proof-band .wpbb-column {
+  min-width:0;
+}
+
+/* Directory single pages: keep the media, copy and request panel on one grid. */
+#wp-theme-main .wpbb-sector-single__media,
+#wp-theme-main .wpbb-sector-single__hero > * {
+  min-width:0;
+}
+#wp-theme-main .wpbb-sector-single__media img {
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:3 / 2;
+  object-fit:cover;
+  object-position:center;
+}
+#wp-theme-main .wpbb-sector-single__content:empty {
+  display:none;
+}
+#wp-theme-main .wpbb-sector-single__content,
+#wp-theme-main .wpbb-sector-request {
+  width:100%;
+  max-width:none;
+  margin-right:0;
+  margin-left:0;
+  clear:both;
+}
+#wp-theme-main .wpbb-sector-single__content + .wpbb-sector-request,
+#wp-theme-main .wpbb-sector-single__hero + .wpbb-sector-request {
+  margin-top:32px;
+}
+
+/* Heading actions and counts align with the same right-hand grid edge. */
+@media(min-width:992px) {
+  #wp-theme-main .wp-theme-insights-section .wp-theme-section-heading > .wpbb-column:last-child,
+  #wp-theme-main .wp-theme-insights-section .wp-theme-section-heading > [class*="col-"]:last-child {
+    display:flex;
+    align-items:flex-end;
+    justify-content:flex-end;
+  }
+  #wp-theme-main .wp-theme-insights-section .wp-theme-section-heading .wp-theme-demo-buttons,
+  #wp-theme-main .wp-theme-insights-section .wp-theme-section-heading .wp-block-buttons {
+    width:auto;
+    margin-right:0;
+    margin-left:auto;
+  }
+}
+
+/* Dark mode must target the link/metadata elements that set their own colours,
+   not only their parent headings. */
+.is-dark-theme #wp-theme-main .wpbb-sector-card__body h3 a,
+.is-dark-theme #wp-theme-main .wp-theme-blog-list-card__title a,
+.is-dark-theme #wp-theme-main .wp-theme-blog-card .wp-block-post-title a,
+.is-dark-theme #wp-theme-main .wp-theme-blog-list-card h2 a,
+.is-dark-theme #wp-theme-main .wp-theme-blog-list-card h3 a,
+.is-dark-theme #wp-theme-main .woocommerce-loop-product__title,
+.is-dark-theme #wp-theme-main .woocommerce-loop-product__title a {
+  color:#f8fafc;
+}
+.is-dark-theme #wp-theme-main .wpbb-sector-card__body > p:not(.wp-theme-sector-eyebrow),
+.is-dark-theme #wp-theme-main .wpbb-sector-card__meta small,
+.is-dark-theme #wp-theme-main .wp-theme-blog-list-card__meta,
+.is-dark-theme #wp-theme-main .wp-theme-blog-result-count,
+.is-dark-theme #wp-theme-main .wpbb-sector-finder__results-head {
+  color:#b8c5d0;
+}
+.is-dark-theme #wp-theme-main .wpbb-sector-card__meta strong,
+.is-dark-theme #wp-theme-main .wpbb-sector-finder__results-head strong {
+  color:#f8fafc;
+}
+.is-dark-theme #wp-theme-main .wpbb-sector-card__meta span {
+  border:1px solid #2d4153;
+  background:#112131;
+}
+.is-dark-theme #wp-theme-main .wpbb-sector-card__link,
+.is-dark-theme #wp-theme-main .wp-theme-blog-list-card__link,
+.is-dark-theme #wp-theme-main .wp-theme-blog-list-card__read-more {
+  color:#b9d8ff;
+}
+.is-dark-theme #wp-theme-main .wpbb-sector-card__link:hover,
+.is-dark-theme #wp-theme-main .wp-theme-blog-list-card__link:hover,
+.is-dark-theme #wp-theme-main .wp-theme-blog-list-card__read-more:hover {
+  color:#ffffff;
+}
+.is-dark-theme #wp-theme-main .wp-theme-sector-eyebrow,
+.is-dark-theme #wp-theme-main .wpbb-sector-card .wp-theme-sector-eyebrow {
+  color:#c8d7e5;
+}
+/* v3.8.10.45: consistent rhythm, readable cards and sector-gallery polish. */
+:root {
+  --wpbb-v45-section-y:80px;
+  --wpbb-v45-related-gap:50px;
+}
+
+/* Every maintained full-width content section follows the same vertical rhythm. */
+#wp-theme-main .wp-theme-section-shell {
+  padding-top:var(--wpbb-v45-section-y);
+  padding-bottom:var(--wpbb-v45-section-y);
+}
+#wp-theme-main .wp-theme-section-heading {
+  margin-bottom:38px;
+}
+#wp-theme-main .wp-theme-section-heading > .wpbb-column,
+#wp-theme-main .wp-theme-section-heading > [class*="col-"] {
+  min-width:0;
+}
+
+/* Stats and the related proof band are one visual sequence, not two widely separated sections. */
+#wp-theme-main .wp-theme-home-stats {
+  margin:0;
+  padding:var(--wpbb-v45-related-gap) 0 0;
+  background:$surface;
+}
+#wp-theme-main .wp-theme-home-stats .wp-theme-sector-proof {
+  margin-top:0;
+}
+#wp-theme-main .wp-theme-home-stats + .wpbb-sector-proof-band {
+  margin-top:0;
+  padding-top:var(--wpbb-v45-related-gap);
+  padding-bottom:0;
+}
+#wp-theme-main .wpbb-sector-proof-band + .wp-theme-section-shell {
+  padding-top:var(--wpbb-v45-section-y);
+}
+
+/* Equal columns and explicit card colour stop dark-section inheritance from hiding light-card titles. */
+#wp-theme-main .wp-theme-sector-services > .wpbb-column,
+#wp-theme-main .wp-theme-sector-industries > .wpbb-column,
+#wp-theme-main .wp-theme-sector-process-grid > .wpbb-column,
+#wp-theme-main .wp-theme-case-grid > .wpbb-column,
+#wp-theme-main .wp-theme-case-studies-grid > .wpbb-column,
+#wp-theme-main .wpbb-sector-proof-band .wpbb-column {
+  display:flex;
+  align-items:stretch;
+  min-width:0;
+}
+#wp-theme-main .wp-theme-sector-card,
+#wp-theme-main .wp-theme-case-card,
+#wp-theme-main .wpbb-sector-proof-card {
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  color:$ink;
+}
+#wp-theme-main .wp-theme-sector-card,
+#wp-theme-main .wp-theme-industries-section .wp-theme-sector-card,
+#wp-theme-main .wp-theme-services-section .wp-theme-sector-card,
+#wp-theme-main .wp-theme-process-section .wp-theme-sector-card,
+#wp-theme-main .wp-theme-case-card,
+#wp-theme-main .wpbb-sector-proof-card {
+  background:$surface;
+  border-color:$border;
+}
+#wp-theme-main .wp-theme-sector-card h2,
+#wp-theme-main .wp-theme-sector-card h3,
+#wp-theme-main .wp-theme-sector-card h3 a,
+#wp-theme-main .wp-theme-case-card h2,
+#wp-theme-main .wp-theme-case-card h3,
+#wp-theme-main .wp-theme-case-card h3 a,
+#wp-theme-main .wpbb-sector-proof-card h2,
+#wp-theme-main .wpbb-sector-proof-card h3,
+#wp-theme-main .wpbb-sector-proof-card h3 a {
+  color:$heading;
+}
+#wp-theme-main .wp-theme-sector-services .wp-theme-sector-card h3,
+#wp-theme-main .wp-theme-sector-industries .wp-theme-sector-card h3 {
+  min-height:2.5em;
+}
+#wp-theme-main .wp-theme-sector-card p,
+#wp-theme-main .wp-theme-case-card p,
+#wp-theme-main .wpbb-sector-proof-card p {
+  color:$muted;
+}
+#wp-theme-main .wp-theme-sector-card .wp-theme-card-icon,
+#wp-theme-main .wp-theme-sector-card .wp-theme-sector-card__icon,
+#wp-theme-main .wp-theme-sector-card .wp-theme-icon-box {
+  margin-bottom:22px;
+}
+#wp-theme-main .wp-theme-case-card .wp-theme-case-card__metric {
+  margin-top:auto;
+}
+#wp-theme-main .wpbb-sector-proof-card {
+  min-height:164px;
+  padding:26px;
+}
+#wp-theme-main .wpbb-sector-proof-card p:last-child {
+  margin-bottom:0;
+}
+
+/* Directory cards use a stable text grid and always expose readable labels, values and links. */
+#wp-theme-main .wpbb-sector-grid {
+  align-items:stretch;
+}
+#wp-theme-main .wpbb-sector-card {
+  height:100%;
+  color:$ink;
+  background:$surface;
+  border-color:$border;
+}
+#wp-theme-main .wpbb-sector-card__body {
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  color:$ink;
+  background:$surface;
+}
+#wp-theme-main .wpbb-sector-card__body h2,
+#wp-theme-main .wpbb-sector-card__body h3,
+#wp-theme-main .wpbb-sector-card__body h2 a,
+#wp-theme-main .wpbb-sector-card__body h3 a {
+  color:$heading;
+}
+#wp-theme-main .wpbb-sector-card__body h3 {
+  min-height:2.5em;
+}
+#wp-theme-main .wpbb-sector-card__body > p:not(.wp-theme-sector-eyebrow) {
+  min-height:3.2em;
+  color:$muted;
+}
+#wp-theme-main .wpbb-sector-card__meta {
+  margin-top:18px;
+}
+#wp-theme-main .wpbb-sector-card__meta span {
+  border-color:$border;
+  background:$soft;
+}
+#wp-theme-main .wpbb-sector-card__meta small,
+#wp-theme-main .wpbb-sector-finder__results-head,
+#wp-theme-main .wp-theme-blog-result-count {
+  color:$muted;
+}
+#wp-theme-main .wpbb-sector-card__meta strong,
+#wp-theme-main .wpbb-sector-finder__results-head strong {
+  color:$heading;
+}
+#wp-theme-main .wpbb-sector-card__link {
+  margin-top:auto;
+  padding-top:18px;
+  color:$primary;
+}
+
+/* About/media rows start on the same baseline and use a substantial, non-distorted image. */
+#wp-theme-main .wp-theme-about-page-intro .wpbb-row,
+#wp-theme-main .wp-theme-about-page-intro .row,
+#wp-theme-main .wp-theme-about-section .wp-theme-sector-media-text,
+#wp-theme-main .wp-theme-sector-media-text {
+  align-items:flex-start;
+}
+#wp-theme-main .wp-theme-about-page-intro .wpbb-column,
+#wp-theme-main .wp-theme-about-page-intro [class*="col-"],
+#wp-theme-main .wp-theme-about-section .wp-theme-sector-media-text > .wpbb-column,
+#wp-theme-main .wp-theme-about-section .wp-theme-sector-media-text > [class*="col-"],
+#wp-theme-main .wp-theme-sector-media-text > .wpbb-column,
+#wp-theme-main .wp-theme-sector-media-text > [class*="col-"] {
+  min-width:0;
+  align-self:flex-start;
+}
+#wp-theme-main .wp-theme-about-page-intro .wp-theme-sector-page-image,
+#wp-theme-main .wp-theme-about-page-intro .wp-theme-sector-media-text__media,
+#wp-theme-main .wp-theme-about-section .wp-theme-sector-media-text__media,
+#wp-theme-main .wp-theme-sector-media-text .wp-theme-sector-media-text__media {
+  width:100%;
+  margin:0;
+  overflow:hidden;
+  border-radius:18px;
+}
+#wp-theme-main .wp-theme-about-page-intro .wp-theme-sector-page-image img,
+#wp-theme-main .wp-theme-about-page-intro .wp-theme-sector-media-text__media img,
+#wp-theme-main .wp-theme-about-section .wp-theme-sector-media-text__media img,
+#wp-theme-main .wp-theme-sector-media-text .wp-theme-sector-media-text__media img {
+  display:block;
+  width:100%;
+  min-height:390px;
+  max-height:540px;
+  aspect-ratio:4 / 3;
+  object-fit:cover;
+  object-position:center;
+}
+#wp-theme-main .wp-theme-about-page-intro .wpbb-column:last-child,
+#wp-theme-main .wp-theme-about-page-intro [class*="col-"]:last-child,
+#wp-theme-main .wp-theme-sector-media-text > .wpbb-column:last-child,
+#wp-theme-main .wp-theme-sector-media-text > [class*="col-"]:last-child {
+  padding-top:0;
+}
+
+/* Blog preview/archive cards keep equal media and readable editorial hierarchy. */
+#wp-theme-main .wp-theme-insights-section .wp-theme-blog-preview .wp-block-post-template,
+#wp-theme-main .wp-theme-blog-list {
+  align-items:stretch;
+}
+#wp-theme-main .wp-theme-blog-card,
+#wp-theme-main .wp-theme-blog-list-card {
+  height:100%;
+  color:$ink;
+  background:$surface;
+  border-color:$border;
+}
+#wp-theme-main .wp-theme-blog-card .wp-block-post-featured-image img,
+#wp-theme-main .wp-theme-blog-list-card__media img {
+  display:block;
+  width:100%;
+  aspect-ratio:16 / 10;
+  object-fit:cover;
+  object-position:center;
+}
+#wp-theme-main .wp-theme-blog-card .wp-block-post-title,
+#wp-theme-main .wp-theme-blog-card .wp-block-post-title a,
+#wp-theme-main .wp-theme-blog-list-card__title,
+#wp-theme-main .wp-theme-blog-list-card__title a {
+  color:$heading;
+}
+#wp-theme-main .wp-theme-blog-card .wp-block-post-date,
+#wp-theme-main .wp-theme-blog-card .wp-theme-blog-card__date,
+#wp-theme-main .wp-theme-blog-card .wp-block-post-excerpt,
+#wp-theme-main .wp-theme-blog-card .wp-block-post-excerpt p,
+#wp-theme-main .wp-theme-blog-list-card__meta,
+#wp-theme-main .wp-theme-blog-list-card__excerpt {
+  color:$muted;
+}
+#wp-theme-main .wp-theme-blog-card .wp-block-post-excerpt__more-link,
+#wp-theme-main .wp-theme-blog-list-card__link,
+#wp-theme-main .wp-theme-blog-list-card__read-more {
+  color:$primary;
+}
+
+/* Single-directory pages and the v45 thumbnail gallery align to the content grid. */
+#wp-theme-main .wpbb-sector-single {
+  padding-top:64px;
+  padding-bottom:80px;
+}
+#wp-theme-main .wpbb-sector-single__hero {
+  align-items:start;
+}
+#wp-theme-main .wpbb-child-sector-gallery {
+  width:100%;
+  margin:0;
+}
+#wp-theme-main .wpbb-child-sector-gallery .wp-theme-item-gallery__stage img {
+  width:100%;
+  min-height:360px;
+  max-height:560px;
+  aspect-ratio:4 / 3;
+  object-fit:cover;
+  object-position:center;
+}
+#wp-theme-main .wpbb-child-sector-gallery .wp-theme-item-gallery__thumbs {
+  gap:10px;
+  padding-top:12px;
+}
+#wp-theme-main .wpbb-child-sector-gallery .wp-theme-item-gallery__thumb {
+  flex-basis:82px;
+  height:62px;
+}
+#wp-theme-main .wpbb-sector-card__media.wp-theme-item-gallery-card,
+#wp-theme-main a.wpbb-sector-card__media.wp-theme-item-gallery-card {
+  position:relative;
+  display:block;
+  overflow:hidden;
+}
+#wp-theme-main .wpbb-sector-card__media.wp-theme-item-gallery-card .wp-theme-item-gallery-card__main {
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+}
+#wp-theme-main .wpbb-sector-single__content + .wpbb-sector-request,
+#wp-theme-main .wpbb-sector-single__hero + .wpbb-sector-request {
+  margin-top:50px;
+}
+
+/* Heading actions line up with the editorial grid instead of floating midway through it. */
+@media (min-width:992px) {
+  #wp-theme-main .wp-theme-section-heading > .wpbb-column:last-child,
+  #wp-theme-main .wp-theme-section-heading > [class*="col-"]:last-child {
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    justify-content:flex-end;
+  }
+  #wp-theme-main .wp-theme-section-heading > .wpbb-column:last-child .wp-theme-demo-buttons,
+  #wp-theme-main .wp-theme-section-heading > [class*="col-"]:last-child .wp-theme-demo-buttons,
+  #wp-theme-main .wp-theme-section-heading > .wpbb-column:last-child .wp-block-buttons,
+  #wp-theme-main .wp-theme-section-heading > [class*="col-"]:last-child .wp-block-buttons {
+    margin:0 0 20px auto;
+  }
+}
+
+/* Dark mode mirrors the same hierarchy with explicit high-contrast values. */
+.is-dark-theme #wp-theme-main .wp-theme-home-stats {
+  background:#0f1a24;
+}
+.is-dark-theme #wp-theme-main .wp-theme-sector-card,
+.is-dark-theme #wp-theme-main .wp-theme-case-card,
+.is-dark-theme #wp-theme-main .wpbb-sector-proof-card,
+.is-dark-theme #wp-theme-main .wpbb-sector-card,
+.is-dark-theme #wp-theme-main .wpbb-sector-card__body,
+.is-dark-theme #wp-theme-main .wp-theme-blog-card,
+.is-dark-theme #wp-theme-main .wp-theme-blog-list-card {
+  color:#dce5ed;
+  background:#172431;
+  border-color:#304150;
+}
+.is-dark-theme #wp-theme-main .wp-theme-sector-card h2,
+.is-dark-theme #wp-theme-main .wp-theme-sector-card h3,
+.is-dark-theme #wp-theme-main .wp-theme-sector-card h3 a,
+.is-dark-theme #wp-theme-main .wp-theme-case-card h2,
+.is-dark-theme #wp-theme-main .wp-theme-case-card h3,
+.is-dark-theme #wp-theme-main .wp-theme-case-card h3 a,
+.is-dark-theme #wp-theme-main .wpbb-sector-proof-card h2,
+.is-dark-theme #wp-theme-main .wpbb-sector-proof-card h3,
+.is-dark-theme #wp-theme-main .wpbb-sector-proof-card h3 a,
+.is-dark-theme #wp-theme-main .wpbb-sector-card__body h2,
+.is-dark-theme #wp-theme-main .wpbb-sector-card__body h3,
+.is-dark-theme #wp-theme-main .wpbb-sector-card__body h2 a,
+.is-dark-theme #wp-theme-main .wpbb-sector-card__body h3 a,
+.is-dark-theme #wp-theme-main .wp-theme-blog-card .wp-block-post-title,
+.is-dark-theme #wp-theme-main .wp-theme-blog-card .wp-block-post-title a,
+.is-dark-theme #wp-theme-main .wp-theme-blog-list-card__title,
+.is-dark-theme #wp-theme-main .wp-theme-blog-list-card__title a,
+.is-dark-theme #wp-theme-main .wpbb-sector-card__meta strong,
+.is-dark-theme #wp-theme-main .wpbb-sector-finder__results-head strong {
+  color:#f8fafc;
+}
+.is-dark-theme #wp-theme-main .wp-theme-sector-card p,
+.is-dark-theme #wp-theme-main .wp-theme-case-card p,
+.is-dark-theme #wp-theme-main .wpbb-sector-proof-card p,
+.is-dark-theme #wp-theme-main .wpbb-sector-card__body > p:not(.wp-theme-sector-eyebrow),
+.is-dark-theme #wp-theme-main .wpbb-sector-card__meta small,
+.is-dark-theme #wp-theme-main .wpbb-sector-finder__results-head,
+.is-dark-theme #wp-theme-main .wp-theme-blog-result-count,
+.is-dark-theme #wp-theme-main .wp-theme-blog-card .wp-block-post-date,
+.is-dark-theme #wp-theme-main .wp-theme-blog-card .wp-theme-blog-card__date,
+.is-dark-theme #wp-theme-main .wp-theme-blog-card .wp-block-post-excerpt,
+.is-dark-theme #wp-theme-main .wp-theme-blog-card .wp-block-post-excerpt p,
+.is-dark-theme #wp-theme-main .wp-theme-blog-list-card__meta,
+.is-dark-theme #wp-theme-main .wp-theme-blog-list-card__excerpt {
+  color:#c5d0da;
+}
+.is-dark-theme #wp-theme-main .wpbb-sector-card__meta span {
+  color:#dce5ed;
+  border-color:#2d4153;
+  background:#112131;
+}
+.is-dark-theme #wp-theme-main .wpbb-sector-card__link,
+.is-dark-theme #wp-theme-main .wp-theme-blog-card .wp-block-post-excerpt__more-link,
+.is-dark-theme #wp-theme-main .wp-theme-blog-list-card__link,
+.is-dark-theme #wp-theme-main .wp-theme-blog-list-card__read-more {
+  color:#b9d8ff;
+}
+.is-dark-theme #wp-theme-main .wpbb-child-sector-gallery .wp-theme-item-gallery__thumb {
+  background:#172431;
+  border-color:#304150;
+}
+
+@media (max-width:991.98px) {
+  :root {
+    --wpbb-v45-section-y:64px;
+  }
+  #wp-theme-main .wp-theme-about-page-intro .wp-theme-sector-page-image img,
+  #wp-theme-main .wp-theme-about-page-intro .wp-theme-sector-media-text__media img,
+  #wp-theme-main .wp-theme-about-section .wp-theme-sector-media-text__media img,
+  #wp-theme-main .wp-theme-sector-media-text .wp-theme-sector-media-text__media img {
+    min-height:330px;
+  }
+}
+
+@media (max-width:767.98px) {
+  :root {
+    --wpbb-v45-section-y:52px;
+  }
+  #wp-theme-main .wp-theme-section-heading {
+    margin-bottom:30px;
+  }
+  #wp-theme-main .wp-theme-home-stats {
+    padding-top:50px;
+  }
+  #wp-theme-main .wp-theme-home-stats + .wpbb-sector-proof-band {
+    padding-top:50px;
+  }
+  #wp-theme-main .wp-theme-sector-services .wp-theme-sector-card h3,
+  #wp-theme-main .wp-theme-sector-industries .wp-theme-sector-card h3,
+  #wp-theme-main .wpbb-sector-card__body h3,
+  #wp-theme-main .wpbb-sector-card__body > p:not(.wp-theme-sector-eyebrow) {
+    min-height:0;
+  }
+  #wp-theme-main .wp-theme-about-page-intro .wp-theme-sector-page-image img,
+  #wp-theme-main .wp-theme-about-page-intro .wp-theme-sector-media-text__media img,
+  #wp-theme-main .wp-theme-about-section .wp-theme-sector-media-text__media img,
+  #wp-theme-main .wp-theme-sector-media-text .wp-theme-sector-media-text__media img {
+    min-height:260px;
+    max-height:none;
+  }
+  #wp-theme-main .wpbb-child-sector-gallery .wp-theme-item-gallery__stage img {
+    min-height:260px;
+    max-height:440px;
+  }
+  #wp-theme-main .wpbb-child-sector-gallery .wp-theme-item-gallery__thumb {
+    flex-basis:70px;
+    height:52px;
+  }
+}
+
+/* v3.8.10.45 editor parity and layout hardening. */
+.editor-styles-wrapper .wp-theme-section-shell {
+  padding-top:80px;
+  padding-bottom:80px;
+}
+.editor-styles-wrapper .wp-theme-section-heading {
+  margin-bottom:38px;
+}
+.editor-styles-wrapper .wp-theme-sector-services > .wpbb-column,
+.editor-styles-wrapper .wp-theme-sector-industries > .wpbb-column,
+.editor-styles-wrapper .wp-theme-sector-process-grid > .wpbb-column,
+.editor-styles-wrapper .wp-theme-case-grid > .wpbb-column,
+.editor-styles-wrapper .wp-theme-case-studies-grid > .wpbb-column {
+  display:flex;
+  align-items:stretch;
+  min-width:0;
+}
+.editor-styles-wrapper .wp-theme-sector-card,
+.editor-styles-wrapper .wp-theme-case-card,
+.editor-styles-wrapper .wpbb-sector-proof-card,
+.editor-styles-wrapper .wpbb-sector-card,
+.editor-styles-wrapper .wpbb-sector-card__body,
+.editor-styles-wrapper .wp-theme-blog-card,
+.editor-styles-wrapper .wp-theme-blog-list-card {
+  width:100%;
+  height:100%;
+  color:$ink;
+  background:$surface;
+  border-color:$border;
+}
+.editor-styles-wrapper .wp-theme-sector-card {
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+}
+.editor-styles-wrapper .wp-theme-sector-card .wp-theme-card-icon,
+.editor-styles-wrapper .wp-theme-sector-card .wp-theme-sector-card__icon,
+.editor-styles-wrapper .wp-theme-sector-card .wp-theme-icon-box {
+  margin-bottom:22px;
+}
+.editor-styles-wrapper .wp-theme-sector-card h2,
+.editor-styles-wrapper .wp-theme-sector-card h3,
+.editor-styles-wrapper .wp-theme-sector-card h2 a,
+.editor-styles-wrapper .wp-theme-sector-card h3 a,
+.editor-styles-wrapper .wp-theme-case-card h2,
+.editor-styles-wrapper .wp-theme-case-card h3,
+.editor-styles-wrapper .wp-theme-case-card h2 a,
+.editor-styles-wrapper .wp-theme-case-card h3 a,
+.editor-styles-wrapper .wpbb-sector-proof-card h2,
+.editor-styles-wrapper .wpbb-sector-proof-card h3,
+.editor-styles-wrapper .wpbb-sector-card h2,
+.editor-styles-wrapper .wpbb-sector-card h3,
+.editor-styles-wrapper .wpbb-sector-card h2 a,
+.editor-styles-wrapper .wpbb-sector-card h3 a,
+.editor-styles-wrapper .wp-theme-blog-card h2,
+.editor-styles-wrapper .wp-theme-blog-card h3,
+.editor-styles-wrapper .wp-theme-blog-card h2 a,
+.editor-styles-wrapper .wp-theme-blog-card h3 a {
+  color:$heading;
+  opacity:1;
+  visibility:visible;
+}
+.editor-styles-wrapper .wp-theme-sector-card p,
+.editor-styles-wrapper .wp-theme-case-card p,
+.editor-styles-wrapper .wpbb-sector-proof-card p,
+.editor-styles-wrapper .wpbb-sector-card p,
+.editor-styles-wrapper .wp-theme-blog-card p,
+.editor-styles-wrapper .wp-theme-blog-list-card p {
+  color:$muted;
+  opacity:1;
+  visibility:visible;
+}
+.editor-styles-wrapper .wp-theme-home-stats {
+  margin:0;
+  padding-top:50px;
+}
+.editor-styles-wrapper .wp-theme-home-stats + .wpbb-sector-proof-band {
+  margin-top:0;
+  padding-top:50px;
+}
+.editor-styles-wrapper .wp-theme-about-page-intro .wpbb-row,
+.editor-styles-wrapper .wp-theme-about-page-intro .row,
+.editor-styles-wrapper .wp-theme-about-section .wp-theme-sector-media-text,
+.editor-styles-wrapper .wp-theme-sector-media-text {
+  align-items:stretch;
+}
+.editor-styles-wrapper .wp-theme-about-page-intro .wpbb-column,
+.editor-styles-wrapper .wp-theme-about-page-intro [class*="col-"],
+.editor-styles-wrapper .wp-theme-sector-media-text > .wpbb-column,
+.editor-styles-wrapper .wp-theme-sector-media-text > [class*="col-"] {
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  align-self:stretch;
+}
+.editor-styles-wrapper .wp-theme-about-page-intro .wpbb-column:last-child,
+.editor-styles-wrapper .wp-theme-sector-media-text > .wpbb-column:last-child,
+.editor-styles-wrapper .wp-theme-sector-media-text > [class*="col-"]:last-child {
+  justify-content:center;
+}
+.editor-styles-wrapper .wp-theme-about-page-intro .wp-block-image,
+.editor-styles-wrapper .wp-theme-about-page-intro .wp-theme-sector-media-text__media,
+.editor-styles-wrapper .wp-theme-sector-media-text__media {
+  width:100%;
+  height:100%;
+  min-height:390px;
+  margin:0;
+  overflow:hidden;
+  border-radius:18px;
+}
+.editor-styles-wrapper .wp-theme-about-page-intro .wp-block-image img,
+.editor-styles-wrapper .wp-theme-about-page-intro .wp-theme-sector-media-text__media img,
+.editor-styles-wrapper .wp-theme-sector-media-text__media img {
+  display:block;
+  width:100%;
+  height:100%;
+  min-height:390px;
+  max-height:540px;
+  aspect-ratio:4 / 3;
+  object-fit:cover;
+  object-position:center;
+}
+.is-dark-theme .editor-styles-wrapper .wp-theme-sector-card,
+.is-dark-theme .editor-styles-wrapper .wp-theme-case-card,
+.is-dark-theme .editor-styles-wrapper .wpbb-sector-proof-card,
+.is-dark-theme .editor-styles-wrapper .wpbb-sector-card,
+.is-dark-theme .editor-styles-wrapper .wpbb-sector-card__body,
+.is-dark-theme .editor-styles-wrapper .wp-theme-blog-card,
+.is-dark-theme .editor-styles-wrapper .wp-theme-blog-list-card {
+  color:#dce5ed;
+  background:#172431;
+  border-color:#304150;
+}
+.is-dark-theme .editor-styles-wrapper .wp-theme-sector-card h2,
+.is-dark-theme .editor-styles-wrapper .wp-theme-sector-card h3,
+.is-dark-theme .editor-styles-wrapper .wp-theme-sector-card h2 a,
+.is-dark-theme .editor-styles-wrapper .wp-theme-sector-card h3 a,
+.is-dark-theme .editor-styles-wrapper .wp-theme-case-card h2,
+.is-dark-theme .editor-styles-wrapper .wp-theme-case-card h3,
+.is-dark-theme .editor-styles-wrapper .wpbb-sector-proof-card h2,
+.is-dark-theme .editor-styles-wrapper .wpbb-sector-proof-card h3,
+.is-dark-theme .editor-styles-wrapper .wpbb-sector-card h2,
+.is-dark-theme .editor-styles-wrapper .wpbb-sector-card h3,
+.is-dark-theme .editor-styles-wrapper .wp-theme-blog-card h2,
+.is-dark-theme .editor-styles-wrapper .wp-theme-blog-card h3 {
+  color:#f8fafc;
+}
+.is-dark-theme .editor-styles-wrapper .wp-theme-sector-card p,
+.is-dark-theme .editor-styles-wrapper .wp-theme-case-card p,
+.is-dark-theme .editor-styles-wrapper .wpbb-sector-proof-card p,
+.is-dark-theme .editor-styles-wrapper .wpbb-sector-card p,
+.is-dark-theme .editor-styles-wrapper .wp-theme-blog-card p,
+.is-dark-theme .editor-styles-wrapper .wp-theme-blog-list-card p {
+  color:#c5d0da;
+}
+@media(max-width:991.98px) {
+  .editor-styles-wrapper .wp-theme-section-shell {
+    padding-top:64px;
+    padding-bottom:64px;
+  }
+}
+@media(max-width:767.98px) {
+  .editor-styles-wrapper .wp-theme-section-shell {
+    padding-top:52px;
+    padding-bottom:52px;
+  }
+  .editor-styles-wrapper .wp-theme-about-page-intro .wp-block-image,
+  .editor-styles-wrapper .wp-theme-about-page-intro .wp-theme-sector-media-text__media,
+  .editor-styles-wrapper .wp-theme-sector-media-text__media,
+  .editor-styles-wrapper .wp-theme-about-page-intro .wp-block-image img,
+  .editor-styles-wrapper .wp-theme-about-page-intro .wp-theme-sector-media-text__media img,
+  .editor-styles-wrapper .wp-theme-sector-media-text__media img {
+    min-height:260px;
+    max-height:none;
+  }
+}
+
+/* v3.8.10.46: thumbnail navigation belongs inside the main media frame. */
+#wp-theme-main .wp-theme-item-gallery__stage {
+  position:relative;
+}
+#wp-theme-main .wp-theme-item-gallery__thumbs--overlay {
+  position:absolute;
+  left:16px;
+  right:16px;
+  bottom:16px;
+  z-index:5;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  width:auto;
+  max-width:calc(100% - 32px);
+  margin:0;
+  padding:8px;
+  overflow-x:auto;
+  border:1px solid rgba(255,255,255,.28);
+  border-radius:12px;
+  background:rgba(10,16,26,.72);
+  backdrop-filter:blur(12px);
+  box-shadow:0 10px 28px rgba(0,0,0,.22);
+  scrollbar-width:thin;
+}
+#wp-theme-main .wp-theme-item-gallery__thumbs--overlay .wp-theme-item-gallery__thumb {
+  flex:0 0 72px;
+  width:72px;
+  height:54px;
+  padding:0;
+  border:2px solid rgba(255,255,255,.62);
+  border-radius:8px;
+  background:#fff;
+  box-shadow:0 4px 14px rgba(0,0,0,.22);
+  opacity:.82;
+}
+#wp-theme-main .wp-theme-item-gallery__thumbs--overlay .wp-theme-item-gallery__thumb:hover,
+#wp-theme-main .wp-theme-item-gallery__thumbs--overlay .wp-theme-item-gallery__thumb:focus,
+#wp-theme-main .wp-theme-item-gallery__thumbs--overlay .wp-theme-item-gallery__thumb.is-active {
+  border-color:#fff;
+  outline:2px solid $primary;
+  outline-offset:2px;
+  opacity:1;
+  transform:translateY(-1px);
+}
+#wp-theme-main .wp-theme-item-gallery__thumbs--overlay .wp-theme-item-gallery__thumb img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+#wp-theme-main .wp-theme-item-gallery__stage:has(.wp-theme-item-gallery__thumbs--overlay) .wp-theme-item-gallery__stage-action {
+  top:14px;
+  right:14px;
+  bottom:auto;
+}
+
+/* Keep section transitions readable and aligned in shared sector layouts. */
+#wp-theme-main .wp-theme-section-shell,
+#wp-theme-main .wp-theme-services-section,
+#wp-theme-main .wp-theme-industries-section,
+#wp-theme-main .wp-theme-process-section,
+#wp-theme-main .wp-theme-insights-section,
+#wp-theme-main .wp-theme-about-section,
+#wp-theme-main .wp-theme-gallery-section,
+#wp-theme-main .wpbb-sector-proof-band {
+  scroll-margin-top:100px;
+}
+#wp-theme-main .wp-theme-section-heading,
+#wp-theme-main .wp-theme-blog-section-heading {
+  align-items:flex-end;
+  row-gap:24px;
+}
+#wp-theme-main .wp-theme-section-heading > :last-child,
+#wp-theme-main .wp-theme-blog-section-heading > :last-child {
+  align-self:flex-end;
+}
+#wp-theme-main .wp-theme-about-page-intro .wp-theme-sector-page-image img,
+#wp-theme-main .wp-theme-about-page-intro .wp-theme-sector-media-text__media img,
+#wp-theme-main .wp-theme-about-section .wp-theme-sector-media-text__media img {
+  height:auto;
+  min-height:0;
+  aspect-ratio:4 / 3;
+}
+
+@media(max-width:767.98px){
+  #wp-theme-main .wp-theme-item-gallery__thumbs--overlay {
+    left:10px;
+    right:10px;
+    bottom:10px;
+    max-width:calc(100% - 20px);
+    gap:6px;
+    padding:6px;
+  }
+  #wp-theme-main .wp-theme-item-gallery__thumbs--overlay .wp-theme-item-gallery__thumb {
+    flex-basis:58px;
+    width:58px;
+    height:44px;
+  }
+  #wp-theme-main .wp-theme-item-gallery__stage:has(.wp-theme-item-gallery__thumbs--overlay) .wp-theme-item-gallery__stage-action {
+    top:10px;
+    right:10px;
+  }
+  #wp-theme-main .wp-theme-section-heading > :last-child,
+  #wp-theme-main .wp-theme-blog-section-heading > :last-child {
+    align-self:flex-start;
+  }
+}
