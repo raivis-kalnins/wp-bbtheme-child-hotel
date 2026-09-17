@@ -1,0 +1,197 @@
+/* WP BBTheme child suite 3.8.11.38 - hotel grid, pagination, sector cards and stat alignment. */
+:root{
+  --wpbb-v138-shell:1320px;
+  --wpbb-v138-gutter:24px;
+  --wpbb-v138-green:#079A77;
+  --wpbb-v138-green-soft:#dff4ee;
+}
+
+/* --------------------------------------------------------------------------
+   One content grid for every normal section.
+   Keep outer section backgrounds full width; constrain only their immediate
+   content shell to the same 1320px border-box used by the header/footer.
+   -------------------------------------------------------------------------- */
+html body.wpbb-v138 #wp-theme-main :is(
+  .wpbb-v67-section-shell,
+  .wp-theme-section-shell,
+  section,
+  .wp-theme-home-stats,
+  .wp-theme-insights-section,
+  .wp-theme-services-section,
+  .wp-theme-industries-section,
+  .wp-theme-gallery-section,
+  .wp-theme-faq-section,
+  .wp-theme-about-section
+):not(.wpbb-v136-hero-shell):not(.wp-theme-sector-hero):not(.wp-theme-hero) > :is(
+  .container,
+  .wp-block-group__inner-container,
+  .wpbb-v67-section-inner,
+  .wp-theme-section-inner,
+  .wpbb-row,
+  .row
+){
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:var(--wpbb-v138-shell)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding-left:var(--wpbb-v138-gutter)!important;
+  padding-right:var(--wpbb-v138-gutter)!important;
+}
+
+/* Sections whose heading/grid are direct children rather than wrapped in a
+   .container still land on exactly the same left/right content edge. */
+html body.wpbb-v138 #wp-theme-main :is(
+  .wpbb-v67-section-shell,
+  .wp-theme-section-shell,
+  section
+):not(.wpbb-v136-hero-shell):not(.wp-theme-sector-hero):not(.wp-theme-hero) > :is(
+  .wp-theme-section-heading,
+  .wp-theme-sector-services,
+  .wp-theme-sector-industries,
+  .wp-theme-sector-cards,
+  .wp-theme-feature-grid,
+  .wp-theme-card-grid,
+  .wp-theme-case-grid,
+  .wp-theme-case-studies-grid,
+  .wp-theme-insights-grid,
+  .wp-theme-blog-grid,
+  .wp-theme-sector-proof
+){
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:var(--wpbb-v138-shell)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding-left:var(--wpbb-v138-gutter)!important;
+  padding-right:var(--wpbb-v138-gutter)!important;
+}
+
+/* Keep v136-owned shells on the same geometry too. */
+html body.wpbb-v138 #wp-theme-main .wpbb-v136-align-section:not(.wpbb-v136-hero-shell) > :is(.container,.wp-block-group__inner-container,.wpbb-v67-section-inner),
+html body.wpbb-v138 #wp-theme-main .wpbb-v136-process-shell,
+html body.wpbb-v138 #wp-theme-main .wp-theme-insights-section > :is(.wpbb-row,.row,.container,.wpbb-v67-section-inner){
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:var(--wpbb-v138-shell)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding-left:var(--wpbb-v138-gutter)!important;
+  padding-right:var(--wpbb-v138-gutter)!important;
+}
+
+/* --------------------------------------------------------------------------
+   Hotel pagination: use the hotel green, never the parent/theme blue fallback.
+   Covers hero sliders plus WordPress/search/archive pagination.
+   -------------------------------------------------------------------------- */
+html body.wpbb-v138 #wp-theme-main :is(
+  .wpbb-v136-hero-pagination,
+  .wpbb-v135-hero-pagination,
+  .wpbb-v134-hero-pagination,
+  .wpbb-v127-hero-pagination,
+  .wpbb-v126-hero-pagination,
+  .wpbb-v124-hero-pagination,
+  .wpbb-v123-hero-pagination,
+  .wpbb-v121-pagination,
+  .wpbb-v120-pagination,
+  .swiper-pagination
+) :is(.wpbb-v136-hero-bullet,.wpbb-v135-hero-bullet,.wpbb-v134-hero-bullet,.swiper-pagination-bullet){
+  background:var(--wpbb-v138-green-soft)!important;
+  border-color:color-mix(in srgb,var(--wpbb-v138-green) 32%,transparent)!important;
+}
+html body.wpbb-v138 #wp-theme-main :is(
+  .wpbb-v136-hero-bullet.is-active,
+  .wpbb-v135-hero-bullet.is-active,
+  .wpbb-v134-hero-bullet.is-active,
+  .wpbb-v127-hero-bullet.is-active,
+  .wpbb-v126-hero-bullet.is-active,
+  .wpbb-v124-hero-bullet.is-active,
+  .swiper-pagination-bullet-active
+){
+  background:var(--wpbb-v138-green)!important;
+  border-color:var(--wpbb-v138-green)!important;
+}
+html body.wpbb-v138 #wp-theme-main :is(.wp-theme-search-pagination,.pagination,.nav-links,.woocommerce-pagination) :is(a,span,.page-numbers){
+  border-color:color-mix(in srgb,var(--wpbb-v138-green) 28%,#d9e2e8)!important;
+}
+html body.wpbb-v138 #wp-theme-main :is(.wp-theme-search-pagination,.pagination,.nav-links,.woocommerce-pagination) :is(a,.page-numbers):hover,
+html body.wpbb-v138 #wp-theme-main :is(.wp-theme-search-pagination,.pagination,.nav-links,.woocommerce-pagination) :is(.current,[aria-current="page"]){
+  background:var(--wpbb-v138-green)!important;
+  border-color:var(--wpbb-v138-green)!important;
+  color:#fff!important;
+}
+
+/* --------------------------------------------------------------------------
+   Imported sector placeholder row: always three equal hotel cards on desktop.
+   JavaScript replaces placeholder text with hotel-specific copy.
+   -------------------------------------------------------------------------- */
+html body.wpbb-v138 #wp-theme-main #wpbb-row-30.wpbb-v138-sector-grid{
+  box-sizing:border-box!important;
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:22px!important;
+  width:100%!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  padding-left:0!important;
+  padding-right:0!important;
+  align-items:stretch!important;
+}
+html body.wpbb-v138 #wp-theme-main #wpbb-row-30.wpbb-v138-sector-grid > .wpbb-v138-sector-cell{
+  box-sizing:border-box!important;
+  float:none!important;
+  display:flex!important;
+  width:auto!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  flex:none!important;
+}
+html body.wpbb-v138 #wp-theme-main #wpbb-row-30.wpbb-v138-sector-grid > .wpbb-v138-sector-cell > *{
+  width:100%!important;
+  max-width:100%!important;
+  height:100%!important;
+}
+@media(min-width:760px){
+  html body.wpbb-v138 #wp-theme-main #wpbb-row-30.wpbb-v138-sector-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:24px!important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Fun facts: number, label and any icon are centered consistently.
+   -------------------------------------------------------------------------- */
+html body.wpbb-v138 #wp-theme-main .wpbb-fun-fact,
+html body.wpbb-v138 #wp-theme-main .wpbb-v136-stat-card,
+html body.wpbb-v138 #wp-theme-main .wpbb-v134-stat-card{
+  text-align:center!important;
+}
+html body.wpbb-v138 #wp-theme-main .wpbb-fun-fact :is(.wpbb-fun-fact__inner,.wpbb-fun-fact__content,.card-body),
+html body.wpbb-v138 #wp-theme-main :is(.wpbb-v136-stat-card,.wpbb-v134-stat-card) :is(.wpbb-fun-fact__inner,.wpbb-fun-fact__content,.card-body){
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  width:100%!important;
+}
+html body.wpbb-v138 #wp-theme-main .wpbb-fun-fact :is(.wpbb-fun-fact__number,.wpbb-fun-fact__label,h2,h3,h4,p),
+html body.wpbb-v138 #wp-theme-main :is(.wpbb-v136-stat-card,.wpbb-v134-stat-card) :is(.wpbb-fun-fact__number,.wpbb-fun-fact__label,h2,h3,h4,p){
+  width:100%!important;
+  max-width:none!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  text-align:center!important;
+}
+html body.wpbb-v138 #wp-theme-main .wpbb-fun-fact .wpbb-fun-fact__icon{margin-left:auto!important;margin-right:auto!important}
+
+@media(max-width:767.98px){
+  :root{--wpbb-v138-gutter:18px}
+  html body.wpbb-v138 #wp-theme-main .wpbb-v136-hero :is(.wpbb-swiper-slide__content,.wp-theme-hero__content,.wpbb-hero-content){
+    padding-left:18px!important;
+    padding-right:18px!important;
+  }
+}

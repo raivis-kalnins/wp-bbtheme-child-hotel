@@ -1,0 +1,670 @@
+/* Hotel 3.8.11.39 - unified 1320 grid + WooCommerce/homepage finish. */
+:root{
+  --wpbb-v139-shell:1320px;
+  --wpbb-v139-gutter:24px;
+  --wpbb-v139-accent:var(--sector-primary,var(--sector-v83-accent,#079A77));
+  --wpbb-v139-accent-soft:color-mix(in srgb,var(--wpbb-v139-accent) 12%,#fff);
+  --wpbb-v139-line:#e1e6eb;
+  --wpbb-v139-ink:#0f2345;
+  --wpbb-v139-copy:#5f6978;
+  --wpbb-v139-soft:#f7f9fb;
+  --wpbb-v139-shadow:0 12px 34px rgba(15,35,69,.055);
+
+  /* Historical active layers still read these variables at runtime. Keep every
+     surviving shell on the same Hotel canvas instead of 1440/1320 mixes. */
+  --sector-v97-shell:1320px;
+  --sector-v97-pad:24px;
+  --suite-v98-shell:1320px;
+  --suite-v98-pad:24px;
+  --suite-v99-shell:1320px;
+  --suite-v99-pad:24px;
+  --suite-v100-shell:1320px;
+  --suite-v100-pad:24px;
+  --suite-v103-shell:1320px;
+  --suite-v103-pad:24px;
+  --suite-v104-shell:1320px;
+  --suite-v104-pad:24px;
+  --suite-v105-shell:1320px;
+  --suite-v105-pad:24px;
+  --suite-v107-shell:1320px;
+  --suite-v107-pad:24px;
+  --suite-v108-shell:1320px;
+  --suite-v108-pad:24px;
+  --suite-v113-shell:1320px;
+  --suite-v113-pad:24px;
+  --suite-v114-content:1320px;
+  --suite-v114-pad:24px;
+  --suite-v115-content:1320px;
+  --suite-v115-pad:24px;
+  --suite-v116-content:1320px;
+  --suite-v116-pad:24px;
+  --suite-v117-content:1320px;
+  --suite-v117-pad:24px;
+  --suite-v118-content:1320px;
+  --suite-v118-pad:24px;
+
+  /* v137 previously padded sections to a 1440 content edge. v139 moves the
+     horizontal ownership into one explicit inner shell, so retire that inset. */
+  --wpbb-v137-left:0px;
+  --wpbb-v137-right:0px;
+}
+
+html,body{max-width:100%;overflow-x:clip}
+
+/* --------------------------------------------------------------------------
+   Shared header/footer/page canvas.
+   -------------------------------------------------------------------------- */
+html body.wpbb-v139.wpbb-sector-premium :is(.wp-theme-utility-bar,.wp-theme-header-main,.wp-theme-header-search-panel) > .container,
+html body.wpbb-v139.wpbb-sector-premium .wp-theme-site-footer :is(.wp-theme-footer-newsletter-band,.wp-theme-footer-main,.wp-theme-footer-bottom,.wp-theme-footer-utility) > .container,
+html body.wpbb-v139.wpbb-sector-premium .wp-theme-site-footer > .container{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:var(--wpbb-v139-shell)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding-left:var(--wpbb-v139-gutter)!important;
+  padding-right:var(--wpbb-v139-gutter)!important;
+}
+
+/* Hero remains full bleed; only its copy follows the same content edge. */
+html body.wpbb-v139.wpbb-sector-premium.home #wp-theme-main .wpbb-swiper--hero .wpbb-swiper-slide__content{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:var(--wpbb-v139-shell)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding-left:var(--wpbb-v139-gutter)!important;
+  padding-right:var(--wpbb-v139-gutter)!important;
+}
+html body.wpbb-v139.wpbb-sector-premium.home .wpbb-v83-metrics-wrap{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:var(--wpbb-v139-shell)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding-left:var(--wpbb-v139-gutter)!important;
+  padding-right:var(--wpbb-v139-gutter)!important;
+}
+
+/* --------------------------------------------------------------------------
+   Homepage/normal sections: full-width backgrounds, one 1320px inner grid.
+   v137 is deliberately neutralised horizontally above; these immediate content
+   shells become the single alignment owner.
+   -------------------------------------------------------------------------- */
+html body.wpbb-v139 #wp-theme-main :is(
+  .wp-theme-section-shell,
+  .wpbb-v67-section-shell,
+  .wp-theme-home-stats,
+  .wpbb-sector-proof-band,
+  .wp-theme-inner-hero,
+  .wp-theme-insights-section,
+  .wp-theme-blog-preview-section,
+  .wpbb-hotel-finder-section,
+  .wp-theme-home-product-catalogue,
+  .wp-theme-services-section,
+  .wp-theme-industries-section,
+  .wp-theme-process-section,
+  .wp-theme-case-studies-section,
+  .wp-theme-case-studies,
+  .wp-theme-gallery-section,
+  .wp-theme-faq-section,
+  .wp-theme-about-section,
+  .wp-theme-blog-section,
+  .wp-theme-sector-proof,
+  .wp-theme-sector-media-text,
+  .wp-theme-contact-section,
+  .wp-theme-essential-content
+):not(.wp-theme-sector-hero):not(.wp-theme-hero){
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  padding-left:0!important;
+  padding-right:0!important;
+}
+
+html body.wpbb-v139 #wp-theme-main :is(
+  .wp-theme-section-shell,
+  .wpbb-v67-section-shell,
+  .wp-theme-home-stats,
+  .wpbb-sector-proof-band,
+  .wp-theme-inner-hero,
+  .wp-theme-insights-section,
+  .wp-theme-blog-preview-section,
+  .wpbb-hotel-finder-section,
+  .wp-theme-home-product-catalogue,
+  .wp-theme-services-section,
+  .wp-theme-industries-section,
+  .wp-theme-process-section,
+  .wp-theme-case-studies-section,
+  .wp-theme-case-studies,
+  .wp-theme-gallery-section,
+  .wp-theme-faq-section,
+  .wp-theme-about-section,
+  .wp-theme-blog-section,
+  .wp-theme-sector-proof,
+  .wp-theme-sector-media-text,
+  .wp-theme-contact-section,
+  .wp-theme-essential-content
+):not(.wp-theme-sector-hero):not(.wp-theme-hero) > :is(
+  .container,
+  .container-fluid,
+  .wpbb-v67-section-inner,
+  .wp-block-group__inner-container,
+  .wp-theme-section-inner,
+  .wp-theme-blog-preview-container,
+  .wp-theme-section-heading,
+  .wpbb-v137-grid,
+  .wp-theme-sector-proof,
+  .wpbb-sector-grid,
+  .wp-theme-case-grid,
+  .wp-theme-case-studies-grid,
+  .wp-block-post-template
+){
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:var(--wpbb-v139-shell)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding-left:var(--wpbb-v139-gutter)!important;
+  padding-right:var(--wpbb-v139-gutter)!important;
+}
+
+/* Prevent a nested historical shell from adding a second gutter. */
+html body.wpbb-v139 #wp-theme-main :is(.wp-theme-section-shell,.wpbb-v67-section-shell)
+  :is(.wp-theme-section-shell,.wpbb-v67-section-shell) > :is(.container,.container-fluid,.wpbb-v67-section-inner,.wp-block-group__inner-container){
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  padding-left:0!important;
+  padding-right:0!important;
+}
+
+/* Non-home page shells that sit outside the generic section wrapper. */
+html body.wpbb-v139 #wp-theme-main :is(
+  .wp-theme-blog-hero,
+  .wp-theme-blog-browser,
+  .wp-theme-article-head,
+  .wp-theme-article-body,
+  .wp-theme-related-posts,
+  .wp-theme-essential-hero,
+  .wp-theme-inner-grid
+) > .container{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:var(--wpbb-v139-shell)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding-left:var(--wpbb-v139-gutter)!important;
+  padding-right:var(--wpbb-v139-gutter)!important;
+}
+
+/* --------------------------------------------------------------------------
+   Hotel homepage grids.
+   -------------------------------------------------------------------------- */
+html body.wpbb-v139 #wp-theme-main #wpbb-row-30,
+html body.wpbb-v139 #wp-theme-main #wpbb-row-30.wpbb-v138-sector-grid{
+  box-sizing:border-box!important;
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:20px!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:0!important;
+  align-items:stretch!important;
+}
+html body.wpbb-v139 #wp-theme-main #wpbb-row-30 > *{
+  box-sizing:border-box!important;
+  float:none!important;
+  display:flex!important;
+  width:auto!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  flex:none!important;
+  align-items:stretch!important;
+}
+html body.wpbb-v139 #wp-theme-main #wpbb-row-30 > * > *{width:100%!important;max-width:100%!important;height:100%!important}
+
+/* Stats/fun facts are visually centred, including number, label and icons. */
+html body.wpbb-v139 #wp-theme-main :is(.wpbb-fun-fact,.wp-theme-sector-proof__item){
+  text-align:center!important;
+}
+html body.wpbb-v139 #wp-theme-main :is(.wpbb-fun-fact,.wp-theme-sector-proof__item) :is(.wpbb-fun-fact__inner,.wpbb-fun-fact__content,.card-body){
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  text-align:center!important;
+}
+html body.wpbb-v139 #wp-theme-main :is(.wpbb-fun-fact,.wp-theme-sector-proof__item) :is(.wpbb-fun-fact__number,.wpbb-fun-fact__label,h2,h3,h4,p){
+  width:100%!important;
+  max-width:none!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  text-align:center!important;
+}
+html body.wpbb-v139 #wp-theme-main .wpbb-fun-fact .wpbb-fun-fact__icon{margin-left:auto!important;margin-right:auto!important}
+
+/* Homepage product catalogue: keep 4/2/1 equal cards inside the common shell. */
+html body.wpbb-v139.home #wp-theme-main .wp-theme-home-product-catalogue :is(.wpbb-v137-product-grid,.wpbb-v132-product-grid,.row,.wpbb-row):has(.wpbb-catalogue-card){
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:20px!important;
+  align-items:stretch!important;
+}
+html body.wpbb-v139.home #wp-theme-main .wp-theme-home-product-catalogue :is(.wpbb-v137-product-grid,.wpbb-v132-product-grid,.row,.wpbb-row):has(.wpbb-catalogue-card) > *{
+  float:none!important;
+  width:auto!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin:0!important;
+  height:100%!important;
+}
+
+/* --------------------------------------------------------------------------
+   Pagination: Hotel green rather than plugin/parent blue fallback.
+   -------------------------------------------------------------------------- */
+html body.wpbb-v139 #wp-theme-main :is(.wpbb-v138-hero-pagination,.swiper-pagination) :is(.wpbb-v138-hero-pagination__bullet,.swiper-pagination-bullet){
+  background:color-mix(in srgb,var(--wpbb-v139-accent) 28%,#fff)!important;
+  border-color:color-mix(in srgb,var(--wpbb-v139-accent) 34%,transparent)!important;
+}
+html body.wpbb-v139 #wp-theme-main :is(.wpbb-v138-hero-pagination__bullet.is-active,.wpbb-v138-hero-pagination__bullet[aria-current="true"],.swiper-pagination-bullet-active){
+  background:var(--wpbb-v139-accent)!important;
+  border-color:var(--wpbb-v139-accent)!important;
+  color:#fff!important;
+}
+html body.wpbb-v139 #wp-theme-main :is(.wp-theme-search-pagination,.pagination,.nav-links,.woocommerce-pagination) :is(a,span,.page-numbers){
+  border-color:color-mix(in srgb,var(--wpbb-v139-accent) 28%,#d9e2e8)!important;
+}
+html body.wpbb-v139 #wp-theme-main :is(.wp-theme-search-pagination,.pagination,.nav-links,.woocommerce-pagination) :is(a,.page-numbers):hover,
+html body.wpbb-v139 #wp-theme-main :is(.wp-theme-search-pagination,.pagination,.nav-links,.woocommerce-pagination) :is(.current,[aria-current="page"]){
+  background:var(--wpbb-v139-accent)!important;
+  border-color:var(--wpbb-v139-accent)!important;
+  color:#fff!important;
+}
+
+/* --------------------------------------------------------------------------
+   WooCommerce: one 1320 shell for catalogue, product, basket, checkout/account.
+   -------------------------------------------------------------------------- */
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-page{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:var(--wpbb-v139-shell)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding-left:var(--wpbb-v139-gutter)!important;
+  padding-right:var(--wpbb-v139-gutter)!important;
+}
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-page :is(.wc-block-cart,.wc-block-checkout,.wp-block-woocommerce-cart,.wp-block-woocommerce-checkout){
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:none!important;
+}
+
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy .wp-theme-woo-legacy__hero > .container,
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy .wp-theme-woo-legacy__body{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:var(--wpbb-v139-shell)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding-left:var(--wpbb-v139-gutter)!important;
+  padding-right:var(--wpbb-v139-gutter)!important;
+}
+
+/* Shop/category product grids. */
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--catalog :is(ul.products,.products,.iws-products-grid,.wpbb-v132-shop-grid,.wpbb-v131-shop-grid,.wpbb-v128-shop-grid){
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:22px!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:0!important;
+  align-items:stretch!important;
+  list-style:none!important;
+}
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--catalog :is(ul.products,.products,.iws-products-grid) > li.product{
+  box-sizing:border-box!important;
+  float:none!important;
+  clear:none!important;
+  display:flex!important;
+  flex-direction:column!important;
+  width:auto!important;
+  max-width:none!important;
+  min-width:0!important;
+  height:100%!important;
+  margin:0!important;
+}
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--catalog :is(.woocommerce-result-count,.woocommerce-ordering){margin-bottom:20px!important}
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--catalog .woocommerce-ordering{float:right!important}
+
+/* Product detail. */
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--product .wp-theme-woo-legacy__body--product{max-width:var(--wpbb-v139-shell)!important}
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--product .wpbb-complete-product__main{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:28px!important;
+  align-items:start!important;
+  width:100%!important;
+}
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--product :is(.wpbb-complete-product__media,.wpbb-complete-product__summary,.summary.entry-summary){
+  box-sizing:border-box!important;
+  float:none!important;
+  clear:none!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin:0!important;
+}
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--product :is(.related.products,.upsells.products) ul.products{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:22px!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+}
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--product :is(.related.products,.upsells.products) ul.products > li.product{
+  float:none!important;
+  width:auto!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin:0!important;
+  height:100%!important;
+}
+
+/* Basket: stable form/totals columns and no inherited outer width mismatch. */
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--cart .wp-theme-woo-legacy__body{max-width:var(--wpbb-v139-shell)!important}
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--cart :is(.woocommerce,.wpbb-v139-cart-grid){
+  box-sizing:border-box!important;
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:24px!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  align-items:start!important;
+}
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--cart :is(.woocommerce,.wpbb-v139-cart-grid) > *{min-width:0!important}
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--cart :is(.woocommerce-cart-form,.cart-collaterals,.cart_totals){max-width:none!important;min-width:0!important}
+
+/* Checkout: same 1320 shell instead of the older 1280 exception. */
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--checkout .wp-theme-woo-legacy__body{max-width:var(--wpbb-v139-shell)!important}
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--checkout form.checkout.woocommerce-checkout{
+  box-sizing:border-box!important;
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:24px!important;
+  width:100%!important;
+  max-width:none!important;
+  align-items:start!important;
+}
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--checkout form.checkout.woocommerce-checkout :is(#customer_details,#order_review_heading,#order_review){
+  box-sizing:border-box!important;
+  float:none!important;
+  clear:none!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--checkout #order_review{
+  padding:22px!important;
+  border:1px solid var(--wpbb-v139-line)!important;
+  border-radius:16px!important;
+  background:#fff!important;
+  box-shadow:var(--wpbb-v139-shadow)!important;
+}
+
+/* My Account: navigation/content split on the same page shell. */
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--account .wp-theme-woo-legacy__body{max-width:var(--wpbb-v139-shell)!important}
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--account .woocommerce-MyAccount-navigation,
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--account .woocommerce-MyAccount-content{float:none!important;max-width:none!important;min-width:0!important}
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--account .woocommerce-MyAccount-navigation .is-active a{
+  background:var(--wpbb-v139-accent-soft)!important;
+  color:var(--wpbb-v139-accent)!important;
+}
+
+/* All Woo controls use the Hotel accent; plugin blue must not leak back. */
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy :is(
+  .button,
+  button.button,
+  input.button,
+  a.button,
+  .wp-element-button,
+  .wc-block-components-button,
+  .single_add_to_cart_button,
+  .checkout-button,
+  #place_order
+){
+  border-color:var(--wpbb-v139-accent)!important;
+  background:var(--wpbb-v139-accent)!important;
+  color:#fff!important;
+}
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy :is(a:not(.button):not(.wp-element-button),.product-name a,.woocommerce-MyAccount-navigation a):hover{color:var(--wpbb-v139-accent)!important}
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy :is(input,select,textarea):focus{
+  border-color:var(--wpbb-v139-accent)!important;
+  outline:2px solid color-mix(in srgb,var(--wpbb-v139-accent) 22%,transparent)!important;
+  outline-offset:1px!important;
+}
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy input[type="checkbox"],
+html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy input[type="radio"]{accent-color:var(--wpbb-v139-accent)!important}
+
+@media(min-width:680px){
+  html body.wpbb-v139.home #wp-theme-main .wp-theme-home-product-catalogue :is(.wpbb-v137-product-grid,.wpbb-v132-product-grid,.row,.wpbb-row):has(.wpbb-catalogue-card){grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:22px!important}
+  html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--catalog :is(ul.products,.products,.iws-products-grid,.wpbb-v132-shop-grid,.wpbb-v131-shop-grid,.wpbb-v128-shop-grid){grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--product :is(.related.products,.upsells.products) ul.products{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+
+@media(min-width:760px){
+  html body.wpbb-v139 #wp-theme-main #wpbb-row-30,
+  html body.wpbb-v139 #wp-theme-main #wpbb-row-30.wpbb-v138-sector-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:24px!important}
+}
+
+@media(min-width:980px){
+  html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--cart :is(.woocommerce,.wpbb-v139-cart-grid){grid-template-columns:minmax(0,1.62fr) minmax(310px,.72fr)!important;gap:24px!important}
+  html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--cart :is(.woocommerce,.wpbb-v139-cart-grid) > .woocommerce-cart-form{grid-column:1!important}
+  html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--cart :is(.woocommerce,.wpbb-v139-cart-grid) > .cart-collaterals{grid-column:2!important;align-self:start!important}
+  html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--cart :is(.woocommerce,.wpbb-v139-cart-grid) > :not(.woocommerce-cart-form):not(.cart-collaterals){grid-column:1/-1!important}
+}
+
+@media(min-width:992px){
+  html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--product .wpbb-complete-product__main{grid-template-columns:minmax(0,1.08fr) minmax(390px,.92fr)!important;gap:40px!important}
+  html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--product :is(.related.products,.upsells.products) ul.products:has(> li:nth-child(3)){grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--checkout form.checkout.woocommerce-checkout{grid-template-columns:minmax(0,1.42fr) minmax(390px,.82fr)!important;column-gap:34px!important;row-gap:18px!important}
+  html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--checkout form.checkout.woocommerce-checkout #customer_details{grid-column:1!important;grid-row:1/span 4!important}
+  html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--checkout form.checkout.woocommerce-checkout #order_review_heading{grid-column:2!important;grid-row:1!important;margin:0!important}
+  html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--checkout form.checkout.woocommerce-checkout #order_review{grid-column:2!important;grid-row:2/span 3!important}
+}
+
+@media(min-width:1100px){
+  html body.wpbb-v139.home #wp-theme-main .wp-theme-home-product-catalogue :is(.wpbb-v137-product-grid,.wpbb-v132-product-grid,.row,.wpbb-row):has(.wpbb-catalogue-card){grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:24px!important}
+  html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--catalog :is(ul.products,.products,.iws-products-grid,.wpbb-v132-shop-grid,.wpbb-v131-shop-grid,.wpbb-v128-shop-grid){grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:24px!important}
+}
+
+@media(min-width:820px){
+  html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--account .woocommerce:has(.woocommerce-MyAccount-navigation),
+  html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--account .woocommerce.wpbb-v109-account-grid{
+    display:grid!important;
+    grid-template-columns:minmax(220px,260px) minmax(0,1fr)!important;
+    gap:24px!important;
+    align-items:start!important;
+    width:100%!important;
+  }
+}
+
+@media(max-width:767.98px){
+  :root{
+    --wpbb-v139-gutter:18px;
+    --sector-v97-pad:18px;
+    --suite-v98-pad:18px;
+    --suite-v99-pad:18px;
+    --suite-v100-pad:18px;
+    --suite-v103-pad:18px;
+    --suite-v104-pad:18px;
+    --suite-v105-pad:18px;
+    --suite-v107-pad:18px;
+    --suite-v108-pad:18px;
+    --suite-v113-pad:18px;
+    --suite-v114-pad:18px;
+    --suite-v115-pad:18px;
+    --suite-v116-pad:18px;
+    --suite-v117-pad:18px;
+    --suite-v118-pad:18px;
+  }
+  html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--catalog .woocommerce-ordering{float:none!important;width:100%!important}
+  html body.wpbb-v139 #wp-theme-main.wp-theme-woo-legacy--catalog .woocommerce-ordering select{width:100%!important}
+}
+
+/* --------------------------------------------------------------------------
+   Hotel-specific final ownership additions.
+   -------------------------------------------------------------------------- */
+html body.wpbb-v139{
+  --wpbb-primary:#079A77;
+  --wpbb-accent:#079A77;
+  --wpbb-v136-shell:1320px;
+  --wpbb-v137-shell:1320px;
+  --wpbb-v138-shell:1320px;
+  --wpbb-v138-gutter:24px;
+}
+
+/* Any top-level BBuilder section that is not a full-bleed hero uses the same
+   border-box content edge. This catches imported section variants that do not
+   carry one of the named section classes above. */
+html body.wpbb-v139 #wp-theme-main > section:not(.wp-theme-sector-hero):not(.wp-theme-hero):not(.wpbb-v136-hero-shell) > :is(
+  .container,
+  .container-fluid,
+  .wpbb-v67-section-inner,
+  .wp-block-group__inner-container,
+  .wp-theme-section-inner,
+  .wp-theme-section-heading,
+  .wpbb-row,
+  .row
+){
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:var(--wpbb-v139-shell)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding-left:var(--wpbb-v139-gutter)!important;
+  padding-right:var(--wpbb-v139-gutter)!important;
+}
+
+/* Full-bleed Hotel hero, shared copy edge. */
+html body.wpbb-v139.home #wp-theme-main .wpbb-v136-hero :is(.wpbb-swiper-slide__content,.wp-theme-hero__content,.wpbb-hero-content),
+html body.wpbb-v139.home #wp-theme-main .wp-theme-sector-hero :is(.wpbb-swiper-slide__content,.wp-theme-hero__content,.wpbb-hero-content){
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:var(--wpbb-v139-shell)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding-left:var(--wpbb-v139-gutter)!important;
+  padding-right:var(--wpbb-v139-gutter)!important;
+}
+
+/* Row 30 is the Hotel sector/demo row. Own it directly so it remains 3 equal
+   cards even if an older DOM runtime does not attach its helper class. */
+html body.wpbb-v139 #wp-theme-main #wpbb-row-30{
+  box-sizing:border-box!important;
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:22px!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:0!important;
+  align-items:stretch!important;
+}
+html body.wpbb-v139 #wp-theme-main #wpbb-row-30 > *{
+  box-sizing:border-box!important;
+  float:none!important;
+  display:flex!important;
+  width:auto!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  flex:none!important;
+  align-items:stretch!important;
+}
+html body.wpbb-v139 #wp-theme-main #wpbb-row-30 > * > *{
+  width:100%!important;
+  max-width:100%!important;
+  height:100%!important;
+}
+
+/* Every historical hero pager variant is green, including versions still
+   emitted by imported BBuilder content. */
+html body.wpbb-v139 #wp-theme-main :is(
+  .wpbb-v136-hero-pagination,
+  .wpbb-v135-hero-pagination,
+  .wpbb-v134-hero-pagination,
+  .wpbb-v127-hero-pagination,
+  .wpbb-v126-hero-pagination,
+  .wpbb-v124-hero-pagination,
+  .wpbb-v123-hero-pagination,
+  .wpbb-v121-pagination,
+  .wpbb-v120-pagination,
+  .swiper-pagination
+) :is(
+  .wpbb-v136-hero-bullet,
+  .wpbb-v135-hero-bullet,
+  .wpbb-v134-hero-bullet,
+  .wpbb-v127-hero-bullet,
+  .wpbb-v126-hero-bullet,
+  .wpbb-v124-hero-bullet,
+  .swiper-pagination-bullet
+){
+  background:color-mix(in srgb,#079A77 14%,#fff)!important;
+  border-color:color-mix(in srgb,#079A77 32%,transparent)!important;
+}
+html body.wpbb-v139 #wp-theme-main :is(
+  .wpbb-v136-hero-bullet.is-active,
+  .wpbb-v135-hero-bullet.is-active,
+  .wpbb-v134-hero-bullet.is-active,
+  .wpbb-v127-hero-bullet.is-active,
+  .wpbb-v126-hero-bullet.is-active,
+  .wpbb-v124-hero-bullet.is-active,
+  .swiper-pagination-bullet-active
+){
+  background:#079A77!important;
+  border-color:#079A77!important;
+  color:#fff!important;
+}
+
+/* Hotel stats are centred regardless of which historical stat class survives. */
+html body.wpbb-v139 #wp-theme-main :is(.wpbb-fun-fact,.wpbb-v136-stat-card,.wpbb-v134-stat-card,.wp-theme-sector-proof__item){
+  text-align:center!important;
+}
+html body.wpbb-v139 #wp-theme-main :is(.wpbb-fun-fact,.wpbb-v136-stat-card,.wpbb-v134-stat-card,.wp-theme-sector-proof__item) :is(.wpbb-fun-fact__inner,.wpbb-fun-fact__content,.card-body){
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  text-align:center!important;
+}
+html body.wpbb-v139 #wp-theme-main :is(.wpbb-fun-fact,.wpbb-v136-stat-card,.wpbb-v134-stat-card,.wp-theme-sector-proof__item) :is(.wpbb-fun-fact__number,.wpbb-fun-fact__label,h2,h3,h4,p){
+  width:100%!important;
+  max-width:none!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  text-align:center!important;
+}
+
+@media(min-width:760px){
+  html body.wpbb-v139 #wp-theme-main #wpbb-row-30{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:24px!important}
+}
+
+@media(max-width:767.98px){
+  html body.wpbb-v139{
+    --wpbb-v138-gutter:18px;
+  }
+}

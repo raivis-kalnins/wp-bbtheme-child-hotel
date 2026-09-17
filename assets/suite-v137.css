@@ -1,0 +1,82 @@
+/* WP BBTheme child suite 3.8.11.37 - canonical 1320px alignment hotfix.
+ *
+ * v136 intentionally owns the hero/process/common grid DOM, but its 1180px
+ * shell narrowed managed page sections relative to the theme's canonical
+ * 1320px .container used by the header, footer and core layout.  It also
+ * subtracted an extra viewport gutter while leaving .container padding in
+ * place, producing a second horizontal inset at tablet/smaller desktop sizes.
+ *
+ * This layer keeps the v136 ownership model and only restores one shared
+ * content edge across the site.
+ */
+:root{
+  --wpbb-v136-shell:1320px;
+  --wpbb-v137-shell:1320px;
+}
+
+/* Match the core .container geometry exactly: 1320px border-box with the
+ * existing 24px content padding.  Do not subtract another 48px from width. */
+html body.wpbb-v136 #wp-theme-main .wpbb-v136-align-section:not(.wpbb-v136-hero-shell) > .container,
+html body.wpbb-v136 #wp-theme-main .wpbb-v136-align-section:not(.wpbb-v136-hero-shell) > .wp-block-group__inner-container{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:var(--wpbb-v137-shell)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding-left:24px!important;
+  padding-right:24px!important;
+}
+
+/* v136 rebuilds the process section without a Bootstrap .container, so give
+ * its owned shell the same border-box and gutters as every other section. */
+html body.wpbb-v136 #wp-theme-main .wpbb-v136-process-shell{
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:var(--wpbb-v137-shell)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding-left:24px!important;
+  padding-right:24px!important;
+}
+
+/* The hero remains full bleed, but its copy starts on the same content edge
+ * as the header and the sections below it. */
+html body.wpbb-v136 #wp-theme-main .wpbb-v136-hero :is(.wpbb-swiper-slide__content,.wp-theme-hero__content,.wpbb-hero-content){
+  padding-left:max(24px,calc((100vw - var(--wpbb-v137-shell))/2 + 24px))!important;
+}
+
+/* Older editorial repair layers used 1440px/zero-padding wrappers.  Normalize
+ * the direct section wrapper and list so Latest Thinking shares the same edge. */
+html body.wpbb-v136 #wp-theme-main .wp-theme-insights-section > :is(.wpbb-row,.row,.container,.wpbb-v67-section-inner){
+  box-sizing:border-box!important;
+  width:100%!important;
+  max-width:var(--wpbb-v137-shell)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding-left:24px!important;
+  padding-right:24px!important;
+}
+html body.wpbb-v136 #wp-theme-main .wp-theme-insights-section :is(ul,ol).wp-block-post-template,
+html body.wpbb-v136 #wp-theme-main .wp-theme-insights-section .wp-block-post-template{
+  width:100%!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  padding-left:0!important;
+  padding-right:0!important;
+}
+
+@media(max-width:767.98px){
+  html body.wpbb-v136 #wp-theme-main .wpbb-v136-align-section:not(.wpbb-v136-hero-shell) > .container,
+  html body.wpbb-v136 #wp-theme-main .wpbb-v136-align-section:not(.wpbb-v136-hero-shell) > .wp-block-group__inner-container,
+  html body.wpbb-v136 #wp-theme-main .wpbb-v136-process-shell,
+  html body.wpbb-v136 #wp-theme-main .wp-theme-insights-section > :is(.wpbb-row,.row,.container,.wpbb-v67-section-inner){
+    width:100%!important;
+    padding-left:18px!important;
+    padding-right:18px!important;
+  }
+  html body.wpbb-v136 #wp-theme-main .wpbb-v136-hero :is(.wpbb-swiper-slide__content,.wp-theme-hero__content,.wpbb-hero-content){
+    padding-left:18px!important;
+    padding-right:18px!important;
+  }
+}
